@@ -8,11 +8,12 @@ namespace JAL.UI
     {
         public override GameObject Produce(StringValue value)
         {
-            GameObject option = Instantiate(template, transform);
-            option.name = value.Name;
-            return option;
+            throw new System.NotImplementedException();
         }
 
-        protected override GameObject CreateTemplate() => DC.CreateInputField(new DC.Resources());
+        protected override OptionTemplate CreateTemplate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

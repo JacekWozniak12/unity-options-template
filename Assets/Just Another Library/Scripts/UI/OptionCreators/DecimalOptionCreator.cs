@@ -6,29 +6,39 @@ namespace JAL.UI
 {
     public class DecimalOptionCreator : AbstractOptionCreator<DecimalValue, TMP_InputField>
     {
-        protected override GameObject CreateTemplate()
+        protected override OptionTemplate CreateTemplate()
         {
+            // Create GameObjects
+            GameObject group = new GameObject(typeof(DecimalOptionCreator).ToString());
+            OptionTemplate template = group.AddComponent<OptionTemplate>();
             GameObject labelHolder = TDC.CreateText(new TDC.Resources());
-            labelHolder.name = "Label";
+            GameObject variableHolder = TDC.CreateInputField(new TDC.Resources());
+            
+            // Set transforms
+            labelHolder.transform.SetParent(group.transform, false);
+            variableHolder.transform.SetParent(group.transform, false);
 
-            GameObject valueHolder = TDC.CreateInputField(new TDC.Resources());
-            valueHolder.name = "Value";
-            valueHolder.GetComponent<TMP_InputField>().contentType = TMP_InputField.ContentType.DecimalNumber;
-            return valueHolder;
+            // Set names and features
+            labelHolder.name = "Label";
+            variableHolder.name = "Value";
+            variableHolder.GetComponent<TMP_InputField>().contentType = TMP_InputField.ContentType.DecimalNumber;
+
+            // Set references
+            template.LabelHolder = labelHolder;
+            template.VariableHolder = variableHolder;
+
+            return template;
         }
 
         public override GameObject Produce(DecimalValue value)
         {
-            GameObject option = Instantiate(template, transform);
-            option.name = $"Object - {value.Name}";
+            OptionTemplate option = Instantiate(template, transform);
+            option.gameObject.name = $"Object - {value.Name}";
+            option.gameObject.SetActive(true);
 
-            GameObject labelHolder = option.transform.Find("Label").gameObject;
-            GameObject valueHolder = option.transform.Find("Value").gameObject;
-
-            labelHolder.GetComponent<TMP_InputField>().text = value.Name;
-            valueHolder.GetComponent<TMP_InputField>().text = value.Variable.ToString();
-
-            return option;
+            option.LabelHolder.GetComponent<TextMeshProUGUI>().text = value.Name;
+            option.VariableHolder.GetComponent<TMP_InputField>().text = value.Variable.ToString();
+            return option.gameObject;
         }
     }
 }

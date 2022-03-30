@@ -8,11 +8,12 @@ namespace JAL.UI
     {
         public override GameObject Produce(RangeValue value)
         {
-            GameObject option = Instantiate(template, transform);
-            option.name = value.Name;
-            return option;
+            throw new System.NotImplementedException();
         }
 
-        protected override GameObject CreateTemplate() => DC.CreateSlider(new DC.Resources());
+        protected override OptionTemplate CreateTemplate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

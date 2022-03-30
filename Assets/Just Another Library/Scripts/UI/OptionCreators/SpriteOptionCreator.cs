@@ -7,16 +7,12 @@ namespace JAL.UI
     {
         public override GameObject Produce(SpriteValue value)
         {
-            GameObject option = Instantiate(template, transform);
-            option.name = value.Name;
-            return option;
+            throw new System.NotImplementedException();
         }
 
-        protected override GameObject CreateTemplate()
+        protected override OptionTemplate CreateTemplate()
         {
-            GameObject gameObject = new GameObject(typeof(SpriteValue).ToString());
-            gameObject.AddComponent<Image>();
-            return gameObject;
+            throw new System.NotImplementedException();
         }
     }
 }

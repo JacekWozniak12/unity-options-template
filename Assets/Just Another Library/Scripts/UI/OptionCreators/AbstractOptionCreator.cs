@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using DC = TMPro.TMP_DefaultControls;
+using TDC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
@@ -16,28 +14,26 @@ namespace JAL.UI
         where T : IValueType
         where T1 : Component
     {
-        [SerializeField]
-        protected GameObject prefab;
-        protected GameObject template;
-
-        public abstract GameObject Produce(T value);
+        [SerializeField] protected OptionTemplate prefab;
+        [SerializeField] protected OptionTemplate template;
 
         protected override sealed void Awake()
         {
             base.Awake();
 
             if (prefab != null && GetRequiredComponent() != null)
-            {
                 template = Instantiate(prefab, transform);
-            }
             else
-            {
                 template = CreateTemplate();
-            }
-            template.SetActive(false);
+
+            template.transform.SetParent(this.transform, false);
+            template.gameObject.SetActive(false);
         }
 
-        protected abstract GameObject CreateTemplate();
+        public abstract GameObject Produce(T value);
+        protected const string NAME_LABEL = "label";
+        protected const string NAME_VARIABLE = "variable";
+        protected abstract OptionTemplate CreateTemplate();
         protected T1 GetRequiredComponent() => prefab.GetComponentInChildren<T1>();
     }
 }

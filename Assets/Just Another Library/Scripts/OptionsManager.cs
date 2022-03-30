@@ -6,34 +6,44 @@ namespace JAL
     {
         [SerializeField] OptionsView optionsView;
 
-        internal void CreateUIOption(IValueType value)
+        public void CreateUIOption(IValueType value)
         {
+            GameObject temp = null;
+
             switch (value.GetValueType())
             {
                 case ValueType.None:
-                    break;
+                    return;
                 case ValueType.Integer:
-                    IntegerOptionCreator.Instance.Produce(value as IntegerValue);
+                    temp = IntegerOptionCreator.Instance.Produce(value as IntegerValue);
                     break;
                 case ValueType.Decimal:
-                    DecimalOptionCreator.Instance.Produce(value as DecimalValue);
+                    temp = DecimalOptionCreator.Instance.Produce(value as DecimalValue);
                     break;
                 case ValueType.Range:
-                    RangeOptionCreator.Instance.Produce(value as RangeValue);
+                    temp = RangeOptionCreator.Instance.Produce(value as RangeValue);
                     break;
                 case ValueType.String:
-                    StringOptionCreator.Instance.Produce(value as StringValue);
+                    temp = StringOptionCreator.Instance.Produce(value as StringValue);
                     break;
                 case ValueType.Other:
-                    ImplementOtherValueType(value);
+                    temp = ImplementOtherValueType(value);
                     break;
+            }
+
+            if (temp != null)
+            {
+                temp.transform.SetParent(optionsView.optionList, false);
             }
         }
 
-        private void ImplementOtherValueType(IValueType value)
+        private GameObject ImplementOtherValueType(IValueType value)
         {
             if (value is IImplementUIOfOtherValueType otherImplementator)
-                otherImplementator.GetUIImplementation();
+                return otherImplementator.GetUIImplementation();
+
+            else
+                return null;
         }
     }
 }

@@ -12,6 +12,6 @@ public class Mockup : MonoBehaviour
 
     private void Start()
     {
-        new DecimalValue(nameof(optionDecimal), optionDecimal);
+        OptionsManager.Instance.CreateUIOption(new DecimalValue(nameof(optionDecimal), optionDecimal));
     }
 }
