@@ -20,7 +20,7 @@ namespace JAL.UI
         protected GameObject prefab;
         protected GameObject template;
 
-        public abstract GameObject CreateUIRepresentationOfValue(T value);
+        public abstract GameObject Produce(T value);
 
         protected override sealed void Awake()
         {

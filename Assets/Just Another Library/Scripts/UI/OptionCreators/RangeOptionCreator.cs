@@ -6,7 +6,7 @@ namespace JAL.UI
 {
     public class RangeOptionCreator : AbstractOptionCreator<RangeValue, Slider>
     {
-        public override GameObject CreateUIRepresentationOfValue(RangeValue value)
+        public override GameObject Produce(RangeValue value)
         {
             GameObject option = Instantiate(template, transform);
             option.name = value.Name;

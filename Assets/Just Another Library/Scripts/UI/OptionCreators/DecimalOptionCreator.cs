@@ -17,7 +17,7 @@ namespace JAL.UI
             return valueHolder;
         }
 
-        public override GameObject CreateUIRepresentationOfValue(DecimalValue value)
+        public override GameObject Produce(DecimalValue value)
         {
             GameObject option = Instantiate(template, transform);
             option.name = $"Object - {value.Name}";
@@ -26,7 +26,7 @@ namespace JAL.UI
             GameObject valueHolder = option.transform.Find("Value").gameObject;
 
             labelHolder.GetComponent<TMP_InputField>().text = value.Name;
-            valueHolder.GetComponent<TMP_InputField>().text = value.Value.ToString();
+            valueHolder.GetComponent<TMP_InputField>().text = value.Variable.ToString();
 
             return option;
         }

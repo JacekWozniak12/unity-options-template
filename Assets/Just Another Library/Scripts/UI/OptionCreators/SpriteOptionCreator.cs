@@ -5,7 +5,7 @@ namespace JAL.UI
 {
     public class SpriteOptionCreator : AbstractOptionCreator<SpriteValue, Image>
     {
-        public override GameObject CreateUIRepresentationOfValue(SpriteValue value)
+        public override GameObject Produce(SpriteValue value)
         {
             GameObject option = Instantiate(template, transform);
             option.name = value.Name;

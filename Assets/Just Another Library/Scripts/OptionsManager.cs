@@ -1,30 +1,28 @@
 using JAL.UI;
 using UnityEngine;
-
 namespace JAL
 {
-    public class OptionsManager : MonoBehaviourSingleton<OptionsManager>, IManageValues
+    public class OptionsManager : MonoBehaviourSingleton<OptionsManager>
     {
-
         [SerializeField] OptionsView optionsView;
-        
-        internal void CreateUIOption(IValue<OptionsManager> value)
+
+        internal void CreateUIOption(IValueType value)
         {
             switch (value.GetValueType())
             {
                 case ValueType.None:
-                    return;
+                    break;
                 case ValueType.Integer:
-                    IntegerOptionCreator.Instance.CreateUIRepresentationOfValue(value as IntegerValue);
+                    IntegerOptionCreator.Instance.Produce(value as IntegerValue);
                     break;
                 case ValueType.Decimal:
-                    DecimalOptionCreator.Instance.CreateUIRepresentationOfValue(value as DecimalValue);
+                    DecimalOptionCreator.Instance.Produce(value as DecimalValue);
                     break;
                 case ValueType.Range:
-                    RangeOptionCreator.Instance.CreateUIRepresentationOfValue(value as RangeValue);
+                    RangeOptionCreator.Instance.Produce(value as RangeValue);
                     break;
                 case ValueType.String:
-                    StringOptionCreator.Instance.CreateUIRepresentationOfValue(value as StringValue);
+                    StringOptionCreator.Instance.Produce(value as StringValue);
                     break;
                 case ValueType.Other:
                     ImplementOtherValueType(value);
@@ -32,7 +30,7 @@ namespace JAL
             }
         }
 
-        private void ImplementOtherValueType(IValue<OptionsManager> value)
+        private void ImplementOtherValueType(IValueType value)
         {
             if (value is IImplementUIOfOtherValueType otherImplementator)
                 otherImplementator.GetUIImplementation();

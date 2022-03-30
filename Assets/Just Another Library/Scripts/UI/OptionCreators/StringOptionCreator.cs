@@ -6,7 +6,7 @@ namespace JAL.UI
 {
     public class StringOptionCreator : AbstractOptionCreator<StringValue, TMP_InputField>
     {
-        public override GameObject CreateUIRepresentationOfValue(StringValue value)
+        public override GameObject Produce(StringValue value)
         {
             GameObject option = Instantiate(template, transform);
             option.name = value.Name;

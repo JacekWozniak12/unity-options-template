@@ -13,7 +13,7 @@ namespace JAL.UI
             return template;
         }
 
-        public override GameObject CreateUIRepresentationOfValue(IntegerValue value)
+        public override GameObject Produce(IntegerValue value)
         {
             GameObject option = Instantiate(template, transform);
             option.name = value.Name;
