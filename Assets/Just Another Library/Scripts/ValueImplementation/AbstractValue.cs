@@ -1,7 +1,8 @@
 using UnityEngine;
 namespace JAL.UI
 {
-    public abstract class AbstractValue<T> : IValueType
+    [System.Serializable]
+    public abstract class AbstractValue<T> : IValueType<T>
     {
         [SerializeField] protected string _name;
         [SerializeField] protected T _variable;
@@ -18,9 +19,9 @@ namespace JAL.UI
             get => _variable;
             set
             {
-                if (_variable.Equals(value))
+                if (!_variable.Equals(value))
                 {
-                    value = ValueConversion(value);
+                    _variable = ValueConversion(value);
                     ValueChanged?.Invoke(_variable);
                 }
             }

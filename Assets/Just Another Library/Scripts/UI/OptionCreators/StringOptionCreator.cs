@@ -4,14 +4,14 @@ using DC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
-    public class StringOptionCreator : AbstractOptionCreator<StringValue, TMP_InputField>
+    public class StringOptionCreator : AbstractOptionCreator<StringValue, TMP_InputField, string>
     {
-        public override GameObject Produce(StringValue value)
+        protected override void SetProduct(OptionTemplate option, StringValue value)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override OptionTemplate CreateTemplate()
+        protected override void VariableComponentSetup(OptionTemplate option)
         {
             throw new System.NotImplementedException();
         }

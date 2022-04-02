@@ -1,5 +1,5 @@
+using TMPro;
 using UnityEngine;
-using TDC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
@@ -8,32 +8,57 @@ namespace JAL.UI
     /// </summary>
     /// <typeparam name="T">Value type</typeparam>
     /// <typeparam name="T1">Component used to present value type</typeparam>
-    public abstract class AbstractOptionCreator<T, T1> :
-        MonoBehaviourSingleton<AbstractOptionCreator<T, T1>>,
+    public abstract class AbstractOptionCreator<T, T1, T2> :
+        MonoBehaviourSingleton<AbstractOptionCreator<T, T1, T2>>,
         IManageValueUICreation<T>
-        where T : IValueType
+        where T : IValueType<T2>
         where T1 : Component
     {
-        [SerializeField] protected OptionTemplate prefab;
         [SerializeField] protected OptionTemplate template;
 
         protected override sealed void Awake()
         {
             base.Awake();
+            template = CreateTemplate();
+            SetGameObjectTemplate();
+        }
 
-            if (prefab != null && GetRequiredComponent() != null)
-                template = Instantiate(prefab, transform);
-            else
-                template = CreateTemplate();
-
+        private void SetGameObjectTemplate()
+        {
             template.transform.SetParent(this.transform, false);
             template.gameObject.SetActive(false);
         }
 
-        public abstract GameObject Produce(T value);
-        protected const string NAME_LABEL = "label";
-        protected const string NAME_VARIABLE = "variable";
-        protected abstract OptionTemplate CreateTemplate();
-        protected T1 GetRequiredComponent() => prefab.GetComponentInChildren<T1>();
+        protected abstract void SetProduct(OptionTemplate option, T value);
+        protected abstract void VariableComponentSetup(OptionTemplate option);
+
+        public virtual GameObject Produce(T value)
+        {
+            OptionTemplate option = Instantiate(template, transform);
+            SetLabel(option, value.Name);
+            SetProduct(option, value);
+            SetGameObject(option, value);
+            return option.gameObject;
+        }
+
+        protected virtual OptionTemplate CreateTemplate()
+        {
+            GameObject group = new GameObject(typeof(T).ToString());
+            OptionTemplate template = group.AddComponent<OptionTemplate>();
+            template.Setup();
+            VariableComponentSetup(template);
+            return template;
+        }
+
+        protected virtual void SetGameObject(OptionTemplate option, T value)
+        {
+            option.gameObject.name = $"Object - {value.Name}";
+            option.gameObject.SetActive(true);
+        }
+
+        protected virtual void SetLabel(OptionTemplate template, string name)
+        {
+            template.LabelHolder.GetComponent<TextMeshProUGUI>().text = name;
+        }
     }
 }

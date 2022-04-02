@@ -1,16 +1,15 @@
 using TMPro;
-using UnityEngine;
 
 namespace JAL.UI
 {
-    public class IntegerOptionCreator : AbstractOptionCreator<IntegerValue, TMP_InputField>
+    public class IntegerOptionCreator : AbstractOptionCreator<IntegerValue, TMP_InputField, int>
     {
-        public override GameObject Produce(IntegerValue value)
+        protected override void SetProduct(OptionTemplate option, IntegerValue value)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override OptionTemplate CreateTemplate()
+        protected override void VariableComponentSetup(OptionTemplate option)
         {
             throw new System.NotImplementedException();
         }

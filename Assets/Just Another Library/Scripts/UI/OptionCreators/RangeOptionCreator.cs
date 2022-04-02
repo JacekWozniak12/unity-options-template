@@ -4,14 +4,14 @@ using DC = UnityEngine.UI.DefaultControls;
 
 namespace JAL.UI
 {
-    public class RangeOptionCreator : AbstractOptionCreator<RangeValue, Slider>
+    public class RangeOptionCreator : AbstractOptionCreator<RangeValue, Slider, float>
     {
-        public override GameObject Produce(RangeValue value)
+        protected override void SetProduct(OptionTemplate option, RangeValue value)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override OptionTemplate CreateTemplate()
+        protected override void VariableComponentSetup(OptionTemplate option)
         {
             throw new System.NotImplementedException();
         }

@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 namespace JAL.UI
 {
-    public class SpriteOptionCreator : AbstractOptionCreator<SpriteValue, Image>
+    public class SpriteOptionCreator : AbstractOptionCreator<SpriteValue, Image, Sprite>
     {
-        public override GameObject Produce(SpriteValue value)
+        protected override void SetProduct(OptionTemplate option, SpriteValue value)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override OptionTemplate CreateTemplate()
+        protected override void VariableComponentSetup(OptionTemplate option)
         {
             throw new System.NotImplementedException();
         }

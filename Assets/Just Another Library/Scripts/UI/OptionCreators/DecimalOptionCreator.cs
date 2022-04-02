@@ -4,41 +4,19 @@ using TDC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
-    public class DecimalOptionCreator : AbstractOptionCreator<DecimalValue, TMP_InputField>
+    public class DecimalOptionCreator :
+    AbstractOptionCreator<DecimalValue, TMP_InputField, float>
     {
-        protected override OptionTemplate CreateTemplate()
+        protected override void SetProduct(OptionTemplate option, DecimalValue value)
         {
-            // Create GameObjects
-            GameObject group = new GameObject(typeof(DecimalOptionCreator).ToString());
-            OptionTemplate template = group.AddComponent<OptionTemplate>();
-            GameObject labelHolder = TDC.CreateText(new TDC.Resources());
-            GameObject variableHolder = TDC.CreateInputField(new TDC.Resources());
-            
-            // Set transforms
-            labelHolder.transform.SetParent(group.transform, false);
-            variableHolder.transform.SetParent(group.transform, false);
-
-            // Set names and features
-            labelHolder.name = "Label";
-            variableHolder.name = "Value";
-            variableHolder.GetComponent<TMP_InputField>().contentType = TMP_InputField.ContentType.DecimalNumber;
-
-            // Set references
-            template.LabelHolder = labelHolder;
-            template.VariableHolder = variableHolder;
-
-            return template;
+            TMP_InputField T1 = (TMP_InputField) option.VariableComponent;
+            T1.text = value.Variable.ToString();
+            T1.onEndEdit.AddListener((string x) => value.Variable = float.Parse(x));
         }
 
-        public override GameObject Produce(DecimalValue value)
+        protected override void VariableComponentSetup(OptionTemplate option)
         {
-            OptionTemplate option = Instantiate(template, transform);
-            option.gameObject.name = $"Object - {value.Name}";
-            option.gameObject.SetActive(true);
-
-            option.LabelHolder.GetComponent<TextMeshProUGUI>().text = value.Name;
-            option.VariableHolder.GetComponent<TMP_InputField>().text = value.Variable.ToString();
-            return option.gameObject;
+            option.AddVariableComponent<TMP_InputField>(TDC.CreateInputField(new TDC.Resources()));
         }
     }
 }
