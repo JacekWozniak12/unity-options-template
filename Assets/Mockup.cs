@@ -23,5 +23,10 @@ public class Mockup : MonoBehaviour
         OptionsManager.Instance.CreateUIOption(optionInteger = new IntegerValue(nameof(optionInteger), 10));
         OptionsManager.Instance.CreateUIOption(optionString = new StringValue(nameof(optionString), "3124"));
         OptionsManager.Instance.CreateUIOption(optionRange = new RangeValue(nameof(optionRange), 1));
+    
+        for(int i = 0; i < 50; i++)
+        {
+            OptionsManager.Instance.CreateUIOption(new RangeValue("Range", (float)Random.Range(0, 10f)/10));
+        }
     }
 }

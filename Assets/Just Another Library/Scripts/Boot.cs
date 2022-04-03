@@ -6,7 +6,7 @@ namespace JAL
 {
     public class Boot : MonoBehaviourSingleton<Boot>
     {
-        
+        public static UIStyleOption DefaultUIStyle;
     }
 }
 

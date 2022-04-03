@@ -7,7 +7,7 @@ namespace JAL
     /// <item/> None
     /// <item/> Integer
     /// <item/> Decimal - depends on implementation, but float intended
-    /// <item/> Range - for (0, 1) variables, great for sliders
+    /// <item/> Range - for from 0 to 1 variables, great for sliders
     /// <item/> String - text variables
     /// <item/> Other - if there is need for custom assets etc
     /// </list>

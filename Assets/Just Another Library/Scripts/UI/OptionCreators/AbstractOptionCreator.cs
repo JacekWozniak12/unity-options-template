@@ -45,7 +45,6 @@ namespace JAL.UI
         protected virtual void SetGameObject(OptionTemplate option, T value)
         {
             option.gameObject.name = $"Object - {value.Name}";
-            option.gameObject.SetActive(true);
         }
 
         protected virtual void SetLabel(OptionTemplate template, string name)
@@ -56,7 +55,6 @@ namespace JAL.UI
         private void SetGameObjectTemplate()
         {
             template.transform.SetParent(this.transform, false);
-            template.gameObject.SetActive(false);
         }
     }
 }

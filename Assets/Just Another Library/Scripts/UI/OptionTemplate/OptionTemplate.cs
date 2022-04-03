@@ -40,23 +40,49 @@ namespace JAL.UI
         {
             gameObject.AddComponent<RectTransform>();
             gameObject.AddComponent<HorizontalLayoutGroup>();
+            LayoutElement le = gameObject.AddComponent<LayoutElement>();
+            le.minHeight = 75;
             SetLabelHolder();
         }
 
         private void SetLabelHolder()
         {
+            // Set Element Holder
+            GameObject elementHolder = new GameObject("Label-Container");
+            elementHolder.transform.SetParent(transform, false);
+            LayoutElement layoutElement = elementHolder.AddComponent<LayoutElement>();
+            layoutElement.flexibleWidth = 1;
+
             LabelHolder = TDC.CreateText(new TDC.Resources());
-            LabelHolder.transform.SetParent(transform, false);
+            LabelHolder.transform.SetParent(elementHolder.transform, false);
             LabelHolder.name = "Label";
-            LabelHolder.GetComponent<TextMeshProUGUI>().color = Color.black;
-            LabelHolder.AddComponent<LayoutElement>();
+            TextMeshProUGUI tc = LabelHolder.GetComponent<TextMeshProUGUI>();
+            tc.color = Color.black;
+            tc.alignment = TextAlignmentOptions.Left;
+
+            RectTransform rt = LabelHolder.GetComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.sizeDelta = Vector2.zero;
+            rt.offsetMin = Vector2.left;
         }
 
         private void SetVariableHolder()
         {
+            // Set Element Holder
+            GameObject elementHolder = new GameObject("Value-Container");
+            elementHolder.transform.SetParent(transform, false);
+            LayoutElement layoutElement = elementHolder.AddComponent<LayoutElement>();
+            layoutElement.flexibleWidth = 2;
+
+            // Set Holder
             VariableHolder.name = "Value";
-            VariableHolder.transform.SetParent(this.transform, false);
-            VariableHolder.AddComponent<LayoutElement>();
+            VariableHolder.transform.SetParent(elementHolder.transform, false);
+            
+            RectTransform rt = VariableHolder.GetComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.sizeDelta = Vector2.zero;
         }
     }
 }

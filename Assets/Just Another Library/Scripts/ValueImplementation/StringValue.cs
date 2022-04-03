@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace JAL.UI
+namespace JAL
 {
     [System.Serializable]
     public class StringValue : AbstractValue<string>

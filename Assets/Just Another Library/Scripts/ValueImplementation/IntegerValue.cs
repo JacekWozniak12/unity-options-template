@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace JAL.UI
+namespace JAL
 {
     [System.Serializable]
     public class IntegerValue : AbstractValue<int>
