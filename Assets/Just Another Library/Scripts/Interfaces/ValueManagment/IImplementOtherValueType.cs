@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JAL
 {
-    public interface IImplementUIOfOtherValueType
+    public interface IImplementOtherValueType
     { 
         GameObject GetUIImplementation();
     }

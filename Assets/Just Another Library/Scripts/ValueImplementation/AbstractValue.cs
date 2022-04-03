@@ -4,8 +4,8 @@ namespace JAL.UI
     [System.Serializable]
     public abstract class AbstractValue<T> : IValueType<T>
     {
-        [SerializeField] protected string _name;
-        [SerializeField] protected T _variable;
+        [SerializeField] protected string _name = "";
+        [SerializeField] protected T _variable = default;
         [SerializeField] public event System.Action<T> ValueChanged;
 
         public string Name
@@ -19,10 +19,18 @@ namespace JAL.UI
             get => _variable;
             set
             {
+                if (_variable == null)
+                {
+                    _variable = ValueConversion(value);
+                    ValueChanged?.Invoke(_variable);
+                    return;
+                }
+
                 if (!_variable.Equals(value))
                 {
                     _variable = ValueConversion(value);
                     ValueChanged?.Invoke(_variable);
+                    return;
                 }
             }
         }

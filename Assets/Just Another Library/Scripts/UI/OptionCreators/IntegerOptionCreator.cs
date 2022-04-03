@@ -1,4 +1,5 @@
 using TMPro;
+using TDC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
@@ -6,12 +7,15 @@ namespace JAL.UI
     {
         protected override void SetProduct(OptionTemplate option, IntegerValue value)
         {
-            throw new System.NotImplementedException();
+            TMP_InputField T1 = (TMP_InputField) option.VariableComponent;
+            T1.text = value.Variable.ToString();
+            T1.onEndEdit.AddListener((string x) => value.Variable = int.Parse(x));
         }
 
-        protected override void VariableComponentSetup(OptionTemplate option)
+        protected override void SetVariableComponent(OptionTemplate option)
         {
-            throw new System.NotImplementedException();
+            var c = option.AddVariableComponent<TMP_InputField>(TDC.CreateInputField(new TDC.Resources()));
+            c.contentType = TMP_InputField.ContentType.IntegerNumber;
         }
     }
 }

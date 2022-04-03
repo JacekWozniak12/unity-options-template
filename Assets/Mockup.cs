@@ -8,8 +8,20 @@ public class Mockup : MonoBehaviour
     [SerializeField]
     DecimalValue optionDecimal;
 
+    [SerializeField]
+    IntegerValue optionInteger;
+
+    [SerializeField]
+    StringValue optionString;
+
+    [SerializeField]
+    RangeValue optionRange;
+
     private void Start()
     {
-        OptionsManager.Instance.CreateUIOption(optionDecimal = new DecimalValue(nameof(optionDecimal), 10));
+        OptionsManager.Instance.CreateUIOption(optionDecimal = new DecimalValue(nameof(optionDecimal), 10.23f));
+        OptionsManager.Instance.CreateUIOption(optionInteger = new IntegerValue(nameof(optionInteger), 10));
+        OptionsManager.Instance.CreateUIOption(optionString = new StringValue(nameof(optionString), "3124"));
+        OptionsManager.Instance.CreateUIOption(optionRange = new RangeValue(nameof(optionRange), 1));
     }
 }

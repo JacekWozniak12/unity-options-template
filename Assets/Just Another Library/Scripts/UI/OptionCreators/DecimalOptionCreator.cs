@@ -14,9 +14,10 @@ namespace JAL.UI
             T1.onEndEdit.AddListener((string x) => value.Variable = float.Parse(x));
         }
 
-        protected override void VariableComponentSetup(OptionTemplate option)
+        protected override void SetVariableComponent(OptionTemplate option)
         {
-            option.AddVariableComponent<TMP_InputField>(TDC.CreateInputField(new TDC.Resources()));
+            var c = option.AddVariableComponent<TMP_InputField>(TDC.CreateInputField(new TDC.Resources()));
+            c.contentType = TMP_InputField.ContentType.DecimalNumber;
         }
     }
 }

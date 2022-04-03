@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using DC = TMPro.TMP_DefaultControls;
+using TDC = TMPro.TMP_DefaultControls;
 
 namespace JAL.UI
 {
@@ -8,12 +8,14 @@ namespace JAL.UI
     {
         protected override void SetProduct(OptionTemplate option, StringValue value)
         {
-            throw new System.NotImplementedException();
+            TMP_InputField T1 = (TMP_InputField)option.VariableComponent;
+            T1.text = value.Variable;
+            T1.onValueChanged.AddListener((string x) => value.Variable = x);
         }
 
-        protected override void VariableComponentSetup(OptionTemplate option)
+        protected override void SetVariableComponent(OptionTemplate option)
         {
-            throw new System.NotImplementedException();
+            var c = option.AddVariableComponent<TMP_InputField>(TDC.CreateInputField(new TDC.Resources()));
         }
     }
 }

@@ -8,12 +8,14 @@ namespace JAL.UI
     {
         protected override void SetProduct(OptionTemplate option, RangeValue value)
         {
-            throw new System.NotImplementedException();
+            Slider T1 = (Slider)option.VariableComponent;
+            T1.value = value.Variable;
+            T1.onValueChanged.AddListener((float x) => value.Variable = x);
         }
 
-        protected override void VariableComponentSetup(OptionTemplate option)
+        protected override void SetVariableComponent(OptionTemplate option)
         {
-            throw new System.NotImplementedException();
+            var c = option.AddVariableComponent<Slider>(DC.CreateSlider(new DC.Resources()));
         }
     }
 }

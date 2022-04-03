@@ -3,7 +3,7 @@ using UnityEngine;
 namespace JAL.UI
 {
     [System.Serializable]
-    public class SpriteValue : AbstractValue<Sprite>, IImplementUIOfOtherValueType
+    public class SpriteValue : AbstractValue<Sprite>, IImplementOtherValueType
     {
         public SpriteValue(string name, Sprite variable) : base(name, variable){}
         public GameObject GetUIImplementation() => SpriteOptionCreator.Instance.Produce(this);

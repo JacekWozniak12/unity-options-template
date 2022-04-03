@@ -16,27 +16,24 @@ namespace JAL.UI
             private set;
         }
 
-        public Component AddVariableComponent<T1>() where T1 : Component
+        public T1 AddVariableComponent<T1>() where T1 : Component
         {
             VariableHolder = new GameObject();
             SetVariableHolder();
             VariableComponent = VariableHolder.AddComponent<T1>();
-            return VariableComponent;
+            return VariableComponent as T1;
         }
 
-        public Component AddVariableComponent<T1>(GameObject resultOfCreator) where T1 : Component
+        public T1 AddVariableComponent<T1>(GameObject resultOfCreator) where T1 : Component
         {
             VariableHolder = resultOfCreator;
             SetVariableHolder();
-
             VariableComponent = resultOfCreator.GetComponentInChildren<T1>();
 
             if (VariableComponent == null)
-            {
                 Debug.LogWarning("Object does not have specified component type. Change creator", resultOfCreator);
-            }
 
-            return VariableComponent;
+            return VariableComponent as T1;
         }
 
         public void Setup()

@@ -10,7 +10,7 @@ namespace JAL.UI
             throw new System.NotImplementedException();
         }
 
-        protected override void VariableComponentSetup(OptionTemplate option)
+        protected override void SetVariableComponent(OptionTemplate option)
         {
             throw new System.NotImplementedException();
         }
