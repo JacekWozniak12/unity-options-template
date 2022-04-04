@@ -7,10 +7,8 @@ namespace JAL
     public class IntegerValue : AbstractValue<int>
     {
         public IntegerValue(string name, int variable) : base(name, variable) { }
-
         public IntegerValue(string name, int variable, string Group)
         : base(name, variable, Group) { }
-
         public IntegerValue(string name, int variable, string Group, string SubGroup)
         : base(name, variable, Group, SubGroup) { }
 

@@ -53,6 +53,7 @@ namespace JAL.Extenders
 
         public static HorizontalLayoutGroup UI_CreateHorizontalLayoutGroup(
             this GameObject gameObject,
+            int spacing = 5,
             TextAnchor childAlignment = TextAnchor.UpperLeft,
             bool reverseArrangement = false,
             bool childControlHeight = false,
@@ -64,6 +65,7 @@ namespace JAL.Extenders
         )
         {
             var hlg = gameObject.AddComponent<HorizontalLayoutGroup>();
+            hlg.spacing = spacing;
             hlg.childAlignment = childAlignment;
             hlg.reverseArrangement = reverseArrangement;
 
@@ -79,6 +81,7 @@ namespace JAL.Extenders
 
         public static VerticalLayoutGroup UI_CreateVerticalLayoutGroup(
             this GameObject gameObject,
+            int spacing = 5,
             TextAnchor childAlignment = TextAnchor.UpperLeft,
             bool reverseArrangement = false,
             bool childControlHeight = false,
@@ -90,6 +93,7 @@ namespace JAL.Extenders
         )
         {
             var vlg = gameObject.AddComponent<VerticalLayoutGroup>();
+            vlg.spacing = spacing;
             vlg.childAlignment = childAlignment;
             vlg.reverseArrangement = reverseArrangement;
 

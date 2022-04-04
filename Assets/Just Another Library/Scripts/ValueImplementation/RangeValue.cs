@@ -7,10 +7,8 @@ namespace JAL
     {
         public RangeValue(string name, float variable)
         : base(name, variable) { }
-
         public RangeValue(string name, float variable, string Group)
         : base(name, variable, Group) { }
-
         public RangeValue(string name, float variable, string Group, string SubGroup)
         : base(name, variable, Group, SubGroup) { }
 

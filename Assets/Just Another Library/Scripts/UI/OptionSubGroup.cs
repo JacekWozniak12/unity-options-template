@@ -9,7 +9,6 @@ namespace JAL.UI
         [SerializeField]
         OptionSubGroupHeader header;
         IValueGroup parent;
-
         List<OptionItem> OptionItems = new List<OptionItem>();
 
         public void AddItem(OptionItem item)
@@ -19,15 +18,12 @@ namespace JAL.UI
         }
 
         public IValueGroup GetGroup() => parent;
-
-        public string GetName()
-            => header.gameObject != null ? header.gameObject.name : "default";
+        public string GetName() => header.gameObject != null ? header.gameObject.name : "default";
 
         private void Awake()
         {
             gameObject.AddComponent<RectTransform>().SetAnchorsStretched();
             SetLayoutGroup();
-
 
             if (header != null)
                 header.transform.SetParent(this.transform, false);
@@ -40,11 +36,13 @@ namespace JAL.UI
         {
             GameObject headerHolder = new GameObject($"{name}");
             header = headerHolder.AddComponent<OptionSubGroupHeader>();
+            header.transform.SetParent(this.transform, false);
         }
 
         public void SetLayoutGroup()
         {
             gameObject.UI_CreateVerticalLayoutGroup(childControlWidth: true, childControlHeight: true);
+            gameObject.UI_CreateLayoutElement();
         }
     }
 }

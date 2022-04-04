@@ -6,6 +6,11 @@ namespace JAL
     {
         [SerializeField] OptionsView optionsView;
 
+        private void Start()
+        {
+            optionsView.SelectGroup();
+        }
+
         public void CreateUIOption(IValueType value)
         {
             GameObject product = null;
@@ -61,8 +66,8 @@ namespace JAL
                     temp = new GameObject(value.GroupName);
                     group = temp.AddComponent<OptionGroup>();
                     optionsView.Groups.Add(group);
-                    group.Setup(optionsView.optionGroupButtons);
-                    group.transform.SetParent(optionsView.optionList.transform);
+                    group.Setup(optionsView.optionGroupButtons, () => optionsView.SelectGroup(group));
+                    group.transform.SetParent(optionsView.optionList.transform, false);
                 }
             }
             else group = optionsView.MainGroup;
@@ -76,12 +81,10 @@ namespace JAL
                     subGroup = temp.AddComponent<OptionSubGroup>();
                     group.SubGroups.Add(subGroup);
                     subGroup.transform.SetParent(group.transform, false);
+                    subGroup.CreateSubGroupHeader(value.SubGroupName);
                 }
             }
-            else
-            {
-                subGroup = group.Main;
-            }
+            else subGroup = group.Main;
 
             subGroup.AddItem(item.GetComponent<OptionItem>());
         }

@@ -8,7 +8,6 @@ namespace JAL
         public StringValue(string name, string variable = "") : base(name, variable) { }
         public StringValue(string name, string variable, string Group)
         : base(name, variable, Group) { }
-
         public StringValue(string name, string variable, string Group, string SubGroup)
         : base(name, variable, Group, SubGroup) { }
 

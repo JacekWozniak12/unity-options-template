@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JAL.Extenders;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace JAL.UI
 {
@@ -16,6 +17,7 @@ namespace JAL.UI
             Main = new GameObject("Default").AddComponent<OptionSubGroup>();
             gameObject.AddComponent<RectTransform>();
             Main.transform.SetParent(transform, false);
+            gameObject.UI_CreateLayoutElement();
             SetLayoutGroup();
         }
 
@@ -29,10 +31,11 @@ namespace JAL.UI
 
         public string GetName() => $"{gameObject.name}";
 
-        public void Setup(RectTransform buttonGroup)
+        public void Setup(RectTransform buttonGroup, UnityAction action)
         {
             buttonHolder = new GameObject($"{gameObject.name} - Button").AddComponent<OptionGroupButton>();
             buttonHolder.transform.SetParent(buttonGroup, false);
+            buttonHolder.button.onClick.AddListener(action);
         }
     }
 }

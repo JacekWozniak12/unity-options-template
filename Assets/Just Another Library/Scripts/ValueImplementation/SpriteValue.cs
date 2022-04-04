@@ -9,7 +9,6 @@ namespace JAL
         public SpriteValue(string name, Sprite variable) : base(name, variable) { }
         public SpriteValue(string name, Sprite variable, string Group)
         : base(name, variable, Group) { }
-
         public SpriteValue(string name, Sprite variable, string Group, string SubGroup)
         : base(name, variable, Group, SubGroup) { }
 

@@ -9,6 +9,7 @@ namespace JAL.UI
     {
         public GameObject LabelHolder;
         public GameObject ButtonHolder;
+        public Button button;
         public GameObject GroupContainer;
 
         public string GetGroupName()
@@ -33,7 +34,7 @@ namespace JAL.UI
             ButtonHolder = new GameObject("Button");
             ButtonHolder.transform.SetParent(gameObject.transform, false);
             ButtonHolder.AddComponent<RectTransform>();
-            ButtonHolder.UI_CreateButton();
+            button = ButtonHolder.UI_CreateButton();
         }
 
         private void SetLabelHolder()

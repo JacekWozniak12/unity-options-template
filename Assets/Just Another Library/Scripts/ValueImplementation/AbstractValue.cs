@@ -25,7 +25,6 @@ namespace JAL
                 {
                     _variable = ValueConversion(value);
                     ValueChanged?.Invoke(_variable);
-                    return;
                 }
             }
         }
@@ -42,23 +41,26 @@ namespace JAL
             private set;
         }
 
+        #region Constructors
         public AbstractValue(string name, T variable)
         {
             Name = name;
             Variable = variable;
         }
-
-        public AbstractValue(string name, T variable, string Group)
+        public AbstractValue(string name, T variable, string group)
         {
             Name = name;
             Variable = variable;
+            GroupName = group;
         }
-
-        public AbstractValue(string name, T variable, string Group, string SubGroup)
+        public AbstractValue(string name, T variable, string group, string subGroup)
         {
             Name = name;
             Variable = variable;
+            GroupName = group;
+            SubGroupName = subGroup;
         }
+        #endregion
 
         /// <summary>
         /// Defines the type of Variable that is observed

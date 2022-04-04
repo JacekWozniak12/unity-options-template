@@ -16,8 +16,19 @@ namespace JAL.UI
             MainGroup = new GameObject("Main").AddComponent<OptionGroup>();
             MainGroup.transform.SetParent(optionList, false);
             MainGroup.GetComponent<RectTransform>().SetAnchorsStretched();
-            MainGroup.Setup(optionGroupButtons);
+            MainGroup.Setup(optionGroupButtons, () => SelectGroup(MainGroup));
             gameObject.UI_CreateVerticalLayoutGroup();
+            Groups.Add(MainGroup);
+        }
+
+        public void SelectGroup(OptionGroup group = null)
+        {
+            if(group == null) group = MainGroup;
+            foreach(var g in Groups)
+            {
+                g.gameObject.SetActive(false);
+                group.gameObject.SetActive(true);
+            }
         }
     }
 }

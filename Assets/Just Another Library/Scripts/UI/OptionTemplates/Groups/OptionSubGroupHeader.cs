@@ -2,11 +2,15 @@ using UnityEngine;
 using TDC = TMPro.TMP_DefaultControls;
 using TMPro;
 using UnityEngine.UI;
+using JAL.Extenders;
+
 namespace JAL.UI
 {
     public class OptionSubGroupHeader : MonoBehaviour
     {
         public GameObject LabelHolder;
+
+        private void Awake() => Setup();
 
         public void Setup()
         {
@@ -31,12 +35,11 @@ namespace JAL.UI
             TextMeshProUGUI tc = LabelHolder.GetComponent<TextMeshProUGUI>();
             tc.color = Color.black;
             tc.alignment = TextAlignmentOptions.Center;
+            tc.text = gameObject.name;
 
             RectTransform rt = LabelHolder.GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-            rt.sizeDelta = Vector2.zero;
-            rt.offsetMin = Vector2.left;
+            rt.SetAnchorsStretched();
+            rt.SetDefault();
         }
     }
 }
