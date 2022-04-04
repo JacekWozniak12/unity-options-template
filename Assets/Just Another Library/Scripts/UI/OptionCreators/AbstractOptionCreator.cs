@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -42,12 +43,15 @@ namespace JAL.UI
 
         private void StandarizeFontSettings(OptionItem option)
         {
-            TextMeshProUGUI[] textComponents = option.VariableHolder.GetComponentsInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI[] textComponents = option.VariableHolder.GetComponentsInChildren<TextMeshProUGUI>().
+                Union(option.LabelHolder.GetComponentsInChildren<TextMeshProUGUI>()).ToArray();
+            
             if (textComponents.Length > 0)
             {
                 foreach (var component in textComponents)
                 {
                     component.fontSize = 32;
+                    component.alignment = TextAlignmentOptions.Left;
                 }
             }
         }

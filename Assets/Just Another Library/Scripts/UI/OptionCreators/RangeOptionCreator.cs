@@ -1,3 +1,4 @@
+using JAL.Extenders;
 using UnityEngine;
 using UnityEngine.UI;
 using DC = UnityEngine.UI.DefaultControls;
@@ -16,29 +17,12 @@ namespace JAL.UI
         protected override void SetVariableComponent(OptionItem option)
         {
             var c = option.AddVariableComponent<Slider>(DC.CreateSlider(new DC.Resources()));
-            c.fillRect.anchorMin = Vector2.zero;
-            c.fillRect.anchorMax = Vector2.one;
-
-            // Boiler plate for range
             
-            // Fill
-            RectTransform rt;
+            c.fillRect.SetAnchorsStretched();
+            c.transform.Find("Fill Area").GetComponent<RectTransform>().SetAnchorsStretched();
+            c.transform.Find("Handle Slide Area").GetComponent<RectTransform>().SetAnchorsStretched();
+            c.transform.Find("Background").GetComponent<RectTransform>().SetAnchorsStretched();
 
-            rt = c.transform.Find("Fill Area").GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-            
-            // Handle
-            rt = c.transform.Find("Handle Slide Area").GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-
-            // Background
-            rt = c.transform.Find("Background").GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-
-            // Colors
             c.fillRect.GetComponent<Image>().color = Color.red;
             c.handleRect.GetComponent<Image>().color = Color.red;
         }

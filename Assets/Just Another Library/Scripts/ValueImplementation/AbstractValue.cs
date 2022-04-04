@@ -19,6 +19,8 @@ namespace JAL
             get => _variable;
             set
             {
+                // Hack -> if _variable is class object then 
+                // using .Equals throws null reference. 
                 if (_variable == null)
                 {
                     _variable = ValueConversion(value);

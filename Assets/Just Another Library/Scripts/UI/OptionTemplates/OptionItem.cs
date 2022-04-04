@@ -1,8 +1,8 @@
-using System.Reflection.Emit;
 using UnityEngine;
-using TDC = TMPro.TMP_DefaultControls;
 using TMPro;
 using UnityEngine.UI;
+using JAL.Extenders;
+
 namespace JAL.UI
 {
     public class OptionItem : MonoBehaviour
@@ -40,8 +40,7 @@ namespace JAL.UI
         {
             gameObject.AddComponent<RectTransform>();
             gameObject.AddComponent<HorizontalLayoutGroup>();
-            LayoutElement le = gameObject.AddComponent<LayoutElement>();
-            le.minHeight = 75;
+            gameObject.UI_CreateLayoutElement(minHeight: 75);
             SetLabelHolder();
         }
 
@@ -50,10 +49,9 @@ namespace JAL.UI
             // Set Element Holder
             GameObject elementHolder = new GameObject("Label-Container");
             elementHolder.transform.SetParent(transform, false);
-            LayoutElement layoutElement = elementHolder.AddComponent<LayoutElement>();
-            layoutElement.flexibleWidth = 1;
+            elementHolder.gameObject.UI_CreateLayoutElement(flexibleWidth: 1);
 
-            LabelHolder = TDC.CreateText(new TDC.Resources());
+            LabelHolder = TMP_DefaultControls.CreateText(new TMP_DefaultControls.Resources());
             LabelHolder.transform.SetParent(elementHolder.transform, false);
             LabelHolder.name = "Label";
             TextMeshProUGUI tc = LabelHolder.GetComponent<TextMeshProUGUI>();
@@ -61,10 +59,8 @@ namespace JAL.UI
             tc.alignment = TextAlignmentOptions.Left;
 
             RectTransform rt = LabelHolder.GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-            rt.sizeDelta = Vector2.zero;
-            rt.offsetMin = Vector2.left;
+            rt.SetAnchorsStretched();
+            rt.SetDefault();
         }
 
         private void SetVariableHolder()
@@ -72,17 +68,15 @@ namespace JAL.UI
             // Set Element Holder
             GameObject elementHolder = new GameObject("Value-Container");
             elementHolder.transform.SetParent(transform, false);
-            LayoutElement layoutElement = elementHolder.AddComponent<LayoutElement>();
-            layoutElement.flexibleWidth = 2;
+            elementHolder.gameObject.UI_CreateLayoutElement(flexibleWidth: 2);
 
             // Set Holder
             VariableHolder.name = "Value";
             VariableHolder.transform.SetParent(elementHolder.transform, false);
-            
+
             RectTransform rt = VariableHolder.GetComponent<RectTransform>();
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-            rt.sizeDelta = Vector2.zero;
+            rt.SetAnchorsStretched();
+            rt.SetDefault();
         }
     }
 }
