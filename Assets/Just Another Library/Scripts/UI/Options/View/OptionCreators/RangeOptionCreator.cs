@@ -17,14 +17,18 @@ namespace JAL.UI
         protected override void SetVariableComponent(OptionItem option)
         {
             var c = option.AddVariableComponent<Slider>(DC.CreateSlider(new DC.Resources()));
-            
+            var b = c.transform.Find("Background").gameObject;
+
+            // Setting stretching
             c.fillRect.SetAnchorsStretched();
             c.transform.Find("Fill Area").GetComponent<RectTransform>().SetAnchorsStretched();
             c.transform.Find("Handle Slide Area").GetComponent<RectTransform>().SetAnchorsStretched();
-            c.transform.Find("Background").GetComponent<RectTransform>().SetAnchorsStretched();
+            b.GetComponent<RectTransform>().SetAnchorsStretched();
 
-            c.fillRect.GetComponent<Image>().color = Color.red;
-            c.handleRect.GetComponent<Image>().color = Color.red;
+            // Setting colors
+            c.fillRect.GetComponent<Image>().color = Boot.Instance.DefaultUIStyle.Secondary;
+            c.handleRect.GetComponent<Image>().color = Boot.Instance.DefaultUIStyle.Primary;
+            b.GetComponent<Image>().color = Boot.Instance.DefaultUIStyle.Item_Background;
         }
     }
 }

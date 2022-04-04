@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.17254902, g: 0.24313726, b: 0.3137255, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeValue:
     _name: "Warto\u015B\u0107 Testowa"
-    _variable: 0
+    _variable: 1
 --- !u!4 &885704616
 Transform:
   m_ObjectHideFlags: 0

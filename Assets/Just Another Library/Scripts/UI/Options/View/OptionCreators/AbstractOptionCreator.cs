@@ -51,7 +51,8 @@ namespace JAL.UI
             {
                 foreach (var component in textComponents)
                 {
-                    component.fontSize = 32;
+                    component.fontSize = Boot.Instance.DefaultUIStyle.FontSize;
+                    component.color = Boot.Instance.DefaultUIStyle.FontColor;
                     component.alignment = TextAlignmentOptions.Left;
                 }
             }

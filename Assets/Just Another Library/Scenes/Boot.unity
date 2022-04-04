@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4402df3d4c2743642b1ee07b94995cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneContainer: {fileID: 11400000, guid: ea2a90ca09a2bb44bb8411b607659129, type: 2}
   DefaultUIStyle: {fileID: 11400000, guid: dbe1386e385b28b458974629add24425, type: 2}
 --- !u!4 &2016742215
 Transform:

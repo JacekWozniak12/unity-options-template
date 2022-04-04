@@ -55,7 +55,7 @@ namespace JAL.UI
             LabelHolder.transform.SetParent(elementHolder.transform, false);
             LabelHolder.name = "Label";
             TextMeshProUGUI tc = LabelHolder.GetComponent<TextMeshProUGUI>();
-            tc.color = Color.black;
+            tc.color = Boot.Instance.DefaultUIStyle.FontColor;
             tc.alignment = TextAlignmentOptions.Left;
 
             RectTransform rt = LabelHolder.GetComponent<RectTransform>();

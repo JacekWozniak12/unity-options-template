@@ -10,9 +10,11 @@ namespace JAL
         public int Margin;
 
         [Header("Colors")]
-        public Color FontColor;
-        public Color Background;
-        public Color Main;
+        public Color Background = Color.black;
+        public Color Item_Background = Color.black;
+        public Color FontColor = Color.black;
+        public Color Primary = Color.black;
+        public Color Secondary = Color.black;
 
         [Header("Sounds")]
         public AudioClip Click;

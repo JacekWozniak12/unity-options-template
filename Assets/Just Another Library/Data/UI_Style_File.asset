@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68c87927aa132824183c4ec5039965a6, type: 3}
   m_Name: UI_Style_File
   m_EditorClassIdentifier: 
-  FontSize: 0
-  Margin: 0
-  FontColor: {r: 0, g: 0, b: 0, a: 0}
-  Background: {r: 0, g: 0, b: 0, a: 0}
-  Main: {r: 0, g: 0, b: 0, a: 0}
+  FontSize: 32
+  Margin: 2
+  Background: {r: 0.60784316, g: 0.34901962, b: 0.7137255, a: 1}
+  Item_Background: {r: 0.9254902, g: 0.9411765, b: 0.94509804, a: 1}
+  FontColor: {r: 0.9529412, g: 0.6117647, b: 0.07058824, a: 1}
+  Primary: {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
+  Secondary: {r: 0.7529412, g: 0.22352941, b: 0.16862746, a: 1}
+  Click: {fileID: 0}
+  Save: {fileID: 0}
