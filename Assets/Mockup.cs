@@ -4,52 +4,11 @@ using UnityEngine;
 
 public class Mockup : MonoBehaviour
 {
-
     [SerializeField]
-    DecimalValue optionDecimal;
-
-    [SerializeField]
-    IntegerValue optionInteger;
-
-    [SerializeField]
-    StringValue optionString;
-
-    [SerializeField]
-    RangeValue optionRange;
+    RangeValue rangeValue = new RangeValue("t", 0, (x) => Debug.Log(x));
 
     private void Start()
     {
-        OptionsManager.Instance.CreateUIOption(optionDecimal = new DecimalValue(nameof(optionDecimal), 10.23f));
-        OptionsManager.Instance.CreateUIOption(optionInteger = new IntegerValue(nameof(optionInteger), 10));
-        OptionsManager.Instance.CreateUIOption(optionString = new StringValue(nameof(optionString), "3124"));
-        OptionsManager.Instance.CreateUIOption(optionRange = new RangeValue(nameof(optionRange), 1));
-
-        for (int i = 0; i < 5; i++)
-        {
-            OptionsManager.Instance.CreateUIOption(
-                new RangeValue("Range", (float)Random.Range(0, 10f) / 10)
-                );
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            OptionsManager.Instance.CreateUIOption(
-                new RangeValue("Range", (float)Random.Range(0, 10f) / 10, "Image")
-                );
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            OptionsManager.Instance.CreateUIOption(
-                new RangeValue("Range", (float)Random.Range(0, 10f) / 10, "Image", "Core")
-            );
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            OptionsManager.Instance.CreateUIOption(
-                new RangeValue("Range", (float)Random.Range(0, 10f) / 10, "Sound")
-            );
-        }
+        rangeValue.SubscribeTo(OptionsManager.Instance);
     }
 }

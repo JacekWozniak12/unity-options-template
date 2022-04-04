@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 namespace JAL
 {
@@ -42,24 +43,21 @@ namespace JAL
         }
 
         #region Constructors
-        public AbstractValue(string name, T variable)
+
+        public AbstractValue(
+            string name, 
+            T variable, 
+            System.Action<T> evt, 
+            string group = null, 
+            string subGroup = null)
         {
             Name = name;
             Variable = variable;
-        }
-        public AbstractValue(string name, T variable, string group)
-        {
-            Name = name;
-            Variable = variable;
-            GroupName = group;
-        }
-        public AbstractValue(string name, T variable, string group, string subGroup)
-        {
-            Name = name;
-            Variable = variable;
+            ValueChanged += evt;
             GroupName = group;
             SubGroupName = subGroup;
         }
+
         #endregion
 
         /// <summary>
@@ -71,5 +69,11 @@ namespace JAL
         /// Defines additional operation on Variable before it is saved in member;
         /// </summary>
         public abstract T ValueConversion(T variable);
+
+        public AbstractValue<T> SubscribeTo(IManageValues creator)
+        {
+            creator.CreateValueHandler(this);
+            return this;
+        }
     }
 }

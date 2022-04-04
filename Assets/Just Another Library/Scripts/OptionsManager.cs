@@ -2,7 +2,7 @@ using JAL.UI;
 using UnityEngine;
 namespace JAL
 {
-    public class OptionsManager : MonoBehaviourSingleton<OptionsManager>
+    public class OptionsManager : MonoBehaviourSingleton<OptionsManager>, IManageValues
     {
         [SerializeField] OptionsView optionsView;
 
@@ -11,7 +11,7 @@ namespace JAL
             optionsView.SelectGroup();
         }
 
-        public void CreateUIOption(IValueType value)
+        public void CreateValueHandler(IValueType value)
         {
             GameObject product = null;
 

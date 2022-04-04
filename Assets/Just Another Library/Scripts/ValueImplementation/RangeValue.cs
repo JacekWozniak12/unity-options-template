@@ -5,12 +5,9 @@ namespace JAL
     [System.Serializable]
     public class RangeValue : AbstractValue<float>
     {
-        public RangeValue(string name, float variable)
-        : base(name, variable) { }
-        public RangeValue(string name, float variable, string Group)
-        : base(name, variable, Group) { }
-        public RangeValue(string name, float variable, string Group, string SubGroup)
-        : base(name, variable, Group, SubGroup) { }
+        public RangeValue(string name, float variable, System.Action<float> evt, string group = null, string subGroup = null) : base(name, variable, evt, group, subGroup)
+        {
+        }
 
         public override ValueType GetValueType() => ValueType.Range;
         public override float ValueConversion(float variable) => Mathf.Clamp01(variable);
