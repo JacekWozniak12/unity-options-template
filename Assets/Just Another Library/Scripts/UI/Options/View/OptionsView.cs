@@ -19,6 +19,7 @@ namespace JAL.UI
             MainGroup.Setup(optionGroupButtons, () => SelectGroup(MainGroup));
             gameObject.UI_CreateVerticalLayoutGroup();
             Groups.Add(MainGroup);
+            if(Groups.Count < 2) optionGroupButtons.gameObject.SetActive(false);
         }
 
         public void SelectGroup(OptionGroup group = null)
