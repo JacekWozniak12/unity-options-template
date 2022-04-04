@@ -4,12 +4,12 @@ namespace JAL
     {
         string Name { get; }
         T Variable { get; }
-        IValueGroup Group { get; }
-        IValueSubGroup SubGroup { get; }
     }
 
     public interface IValueType
     {
         ValueType GetValueType();
+        IValueGroup Group { get; }
+        IValueSubGroup SubGroup { get; }
     }
 }

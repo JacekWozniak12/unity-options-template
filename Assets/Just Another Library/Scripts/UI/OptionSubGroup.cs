@@ -7,33 +7,26 @@ namespace JAL.UI
     {
         [SerializeField]
         OptionSubGroupHeader header;
-
-        [SerializeField]
-        List<OptionItem> OptionItems = new List<OptionItem>();
-        
         IValueGroup parent;
 
+        public List<OptionItem> OptionItems = new List<OptionItem>();
         public IValueGroup GetGroup() => parent;
 
-        public string GetSubGroupName() 
+        public string GetName() 
             => header.gameObject != null ? header.gameObject.name : "default";
 
         private void Start()
         {
             if (header != null)
-            {
                 header.transform.SetParent(this.transform, false);
-            }
 
             foreach (OptionItem item in OptionItems)
-            {
                 item.transform.SetParent(this.transform, false);
-            }
         }
 
         public void CreateSubGroupHeader()
         {
-            GameObject headerHolder = new GameObject($"Header - {GetSubGroupName()}");
+            GameObject headerHolder = new GameObject($"Header - {GetName()}");
             header = headerHolder.AddComponent<OptionSubGroupHeader>();
         }
     }

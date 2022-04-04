@@ -21,14 +21,7 @@ namespace JAL
             {
                 // Hack -> if _variable is class object then 
                 // using .Equals throws null reference. 
-                if (_variable == null)
-                {
-                    _variable = ValueConversion(value);
-                    ValueChanged?.Invoke(_variable);
-                    return;
-                }
-
-                if (!_variable.Equals(value))
+                if (_variable == null || !_variable.Equals(value))
                 {
                     _variable = ValueConversion(value);
                     ValueChanged?.Invoke(_variable);

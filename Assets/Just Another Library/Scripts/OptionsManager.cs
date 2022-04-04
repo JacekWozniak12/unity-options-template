@@ -8,32 +8,32 @@ namespace JAL
 
         public void CreateUIOption(IValueType value)
         {
-            GameObject temp = null;
+            GameObject product = null;
 
             switch (value.GetValueType())
             {
                 case ValueType.None:
                     return;
                 case ValueType.Integer:
-                    temp = IntegerOptionCreator.Instance.Produce(value as IntegerValue);
+                    product = IntegerOptionCreator.Instance.Produce(value as IntegerValue);
                     break;
                 case ValueType.Decimal:
-                    temp = DecimalOptionCreator.Instance.Produce(value as DecimalValue);
+                    product = DecimalOptionCreator.Instance.Produce(value as DecimalValue);
                     break;
                 case ValueType.Range:
-                    temp = RangeOptionCreator.Instance.Produce(value as RangeValue);
+                    product = RangeOptionCreator.Instance.Produce(value as RangeValue);
                     break;
                 case ValueType.String:
-                    temp = StringOptionCreator.Instance.Produce(value as StringValue);
+                    product = StringOptionCreator.Instance.Produce(value as StringValue);
                     break;
                 case ValueType.Other:
-                    temp = ImplementOtherValueType(value);
+                    product = ImplementOtherValueType(value);
                     break;
             }
 
-            if (temp != null)
+            if (product != null)
             {
-                temp.transform.SetParent(optionsView.optionList, false);
+                FindOrCreateGroupFor(value, product);
             }
         }
 
@@ -41,9 +41,46 @@ namespace JAL
         {
             if (value is IImplementOtherValueType otherImplementator)
                 return otherImplementator.GetUIImplementation();
-
             else
                 return null;
+        }
+
+        private void FindOrCreateGroupFor(IValueType value, GameObject item)
+        {
+            GameObject temp;
+            OptionGroup group;
+            OptionSubGroup subGroup;
+
+            // Setting the group and subgroup tabs;
+            if (value.Group != null)
+            {
+                group = optionsView.Groups.Find(x => x.name == value.Group.GetName());
+                
+                if (group == null)
+                {
+                    temp = new GameObject(value.Group.GetName());
+                    var g = gameObject.AddComponent<OptionGroup>();
+                    optionsView.Groups.Add(g);
+                }
+            }
+            else group = optionsView.MainGroup;
+
+            if (value.SubGroup != null)
+            {
+                subGroup = group.SubGroups.Find(x => x.name == value.SubGroup.GetName());
+                if (subGroup == null)
+                {
+                    temp = new GameObject(value.SubGroup.GetName());
+                    var g = gameObject.AddComponent<OptionSubGroup>();
+                    group.SubGroups.Add(g);
+                }
+            }
+            else
+            {
+                subGroup = group.Main;
+            }
+
+            subGroup.OptionItems.Add(item.GetComponent<OptionItem>());
         }
     }
 }

@@ -33,23 +33,8 @@ namespace JAL.UI
             SetVariableComponent(option);
             SetProduct(option, value);
             SetGameObject(option, value);
-            SetGroups(option, value);
             StandarizeSettings(option);
             return option.gameObject;
-        }
-
-        private void SetGroups(OptionItem option, T value)
-        {
-            if(value.SubGroup != null)
-            {
-
-                return;
-            }
-
-            if(value.Group != null)
-            {
-
-            } 
         }
 
         private void StandarizeSettings(OptionItem option)

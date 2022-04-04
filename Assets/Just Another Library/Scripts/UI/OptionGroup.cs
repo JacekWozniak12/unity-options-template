@@ -5,18 +5,17 @@ namespace JAL.UI
 {
     public class OptionGroup : MonoBehaviour, IValueGroup
     {
-        public OptionSubGroup Main;
         public List<OptionSubGroup> SubGroups = new List<OptionSubGroup>();
-        public IValueSubGroup Default => Main;
-        public string GetGroupName() => $"{gameObject.name}";
-        
-        OptionGroupButton buttonHolder;
+        public OptionSubGroup Main;
+
+        OptionGroupButton buttonHolder; 
 
         private void Awake()
         {
             Main = new GameObject("main").AddComponent<OptionSubGroup>();
-            
         }
+
+        public string GetName() => $"{gameObject.name}";
 
         public void Setup(RectTransform buttonGroup)
         {
