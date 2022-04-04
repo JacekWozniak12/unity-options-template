@@ -1,6 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class OptionsView : MonoBehaviour
+namespace JAL.UI
 {
-    public RectTransform optionList;
+    public class OptionsView : MonoBehaviour
+    {
+        public List<OptionGroup> Groups = new List<OptionGroup>();
+        public RectTransform optionList;
+        public RectTransform optionGroupButtons;
+    }
 }

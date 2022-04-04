@@ -37,7 +37,31 @@ namespace JAL
             }
         }
 
+        public IValueGroup Group
+        {
+            get;
+            private set;
+        }
+
+        public IValueSubGroup SubGroup
+        {
+            get;
+            private set;
+        }
+
         public AbstractValue(string name, T variable)
+        {
+            Name = name;
+            Variable = variable;
+        }
+
+        public AbstractValue(string name, T variable, string Group)
+        {
+            Name = name;
+            Variable = variable;
+        }
+
+        public AbstractValue(string name, T variable, string Group, string SubGroup)
         {
             Name = name;
             Variable = variable;

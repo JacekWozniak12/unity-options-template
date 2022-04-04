@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace JAL.Extenders
@@ -100,6 +101,19 @@ namespace JAL.Extenders
             vlg.childScaleWidth = childScaleWidth;
 
             return vlg;
+        }
+
+        public static Button UI_CreateButton(
+            this GameObject gameObject,
+            UnityAction[] onClickMethods = default
+        )
+        {
+            Button btn = gameObject.AddComponent<Button>();
+
+            foreach (var method in onClickMethods)
+                btn.onClick.AddListener(method);
+            
+            return btn;
         }
     }
 }

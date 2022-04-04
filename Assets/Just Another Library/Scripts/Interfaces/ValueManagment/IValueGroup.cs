@@ -1,8 +1,8 @@
-using System;
 namespace JAL
 {
     public interface IValueGroup
     {
-        string GetName();
+        IValueSubGroup Default { get; }
+        string GetGroupName();
     }
 }
