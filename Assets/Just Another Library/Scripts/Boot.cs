@@ -6,7 +6,11 @@ namespace JAL
 {
     public class Boot : MonoBehaviourSingleton<Boot>
     {
-        public static UIStyleOption DefaultUIStyle;
+        [Header("Style Containers")]
+        [SerializeField]
+        public UIStyleContainer DefaultUIStyle;
+
+
     }
 }
 
