@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using JAL.Extenders;
 
 namespace JAL.UI
 {
@@ -12,7 +13,11 @@ namespace JAL.UI
 
         private void Awake()
         {
-            MainGroup = new GameObject("main").AddComponent<OptionGroup>();
+            MainGroup = new GameObject("Main").AddComponent<OptionGroup>();
+            MainGroup.transform.SetParent(optionList, false);
+            MainGroup.GetComponent<RectTransform>().SetAnchorsStretched();
+            MainGroup.Setup(optionGroupButtons);
+            gameObject.UI_CreateVerticalLayoutGroup();
         }
     }
 }

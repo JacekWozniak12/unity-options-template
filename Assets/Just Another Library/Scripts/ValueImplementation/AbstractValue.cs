@@ -30,13 +30,13 @@ namespace JAL
             }
         }
 
-        public IValueGroup Group
+        public string GroupName
         {
             get;
             private set;
         }
 
-        public IValueSubGroup SubGroup
+        public string SubGroupName
         {
             get;
             private set;

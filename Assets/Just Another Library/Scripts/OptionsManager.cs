@@ -52,27 +52,30 @@ namespace JAL
             OptionSubGroup subGroup;
 
             // Setting the group and subgroup tabs;
-            if (value.Group != null)
+            if (value.GroupName != null)
             {
-                group = optionsView.Groups.Find(x => x.name == value.Group.GetName());
-                
+                group = optionsView.Groups.Find(x => x.name == value.GroupName);
+
                 if (group == null)
                 {
-                    temp = new GameObject(value.Group.GetName());
-                    var g = gameObject.AddComponent<OptionGroup>();
-                    optionsView.Groups.Add(g);
+                    temp = new GameObject(value.GroupName);
+                    group = temp.AddComponent<OptionGroup>();
+                    optionsView.Groups.Add(group);
+                    group.Setup(optionsView.optionGroupButtons);
+                    group.transform.SetParent(optionsView.optionList.transform);
                 }
             }
             else group = optionsView.MainGroup;
 
-            if (value.SubGroup != null)
+            if (value.SubGroupName != null)
             {
-                subGroup = group.SubGroups.Find(x => x.name == value.SubGroup.GetName());
+                subGroup = group.SubGroups.Find(x => x.name == value.SubGroupName);
                 if (subGroup == null)
                 {
-                    temp = new GameObject(value.SubGroup.GetName());
-                    var g = gameObject.AddComponent<OptionSubGroup>();
-                    group.SubGroups.Add(g);
+                    temp = new GameObject(value.SubGroupName);
+                    subGroup = temp.AddComponent<OptionSubGroup>();
+                    group.SubGroups.Add(subGroup);
+                    subGroup.transform.SetParent(group.transform, false);
                 }
             }
             else
@@ -80,7 +83,7 @@ namespace JAL
                 subGroup = group.Main;
             }
 
-            subGroup.OptionItems.Add(item.GetComponent<OptionItem>());
+            subGroup.AddItem(item.GetComponent<OptionItem>());
         }
     }
 }

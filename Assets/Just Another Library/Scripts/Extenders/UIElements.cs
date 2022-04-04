@@ -79,7 +79,7 @@ namespace JAL.Extenders
 
         public static VerticalLayoutGroup UI_CreateVerticalLayoutGroup(
             this GameObject gameObject,
-            TextAnchor childAlignment,
+            TextAnchor childAlignment = TextAnchor.UpperLeft,
             bool reverseArrangement = false,
             bool childControlHeight = false,
             bool childControlWidth = false,
@@ -105,14 +105,23 @@ namespace JAL.Extenders
 
         public static Button UI_CreateButton(
             this GameObject gameObject,
-            UnityAction[] onClickMethods = default
+            UnityAction[] onClickMethods = default,
+            Color imageColor = default
         )
         {
             Button btn = gameObject.AddComponent<Button>();
+            Image img = gameObject.AddComponent<Image>();
 
-            foreach (var method in onClickMethods)
-                btn.onClick.AddListener(method);
-            
+            if (onClickMethods != default)
+            {
+                foreach (var method in onClickMethods)
+                    btn.onClick.AddListener(method);
+            }
+
+            if (imageColor == default) imageColor = Color.gray;
+            img.color = imageColor;
+            btn.image = img;
+
             return btn;
         }
     }

@@ -9,7 +9,7 @@ namespace JAL
     public interface IValueType
     {
         ValueType GetValueType();
-        IValueGroup Group { get; }
-        IValueSubGroup SubGroup { get; }
+        string GroupName { get; }
+        string SubGroupName { get; }
     }
 }
