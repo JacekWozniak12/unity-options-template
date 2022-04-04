@@ -6,14 +6,14 @@ namespace JAL.UI
 {
     public class RangeOptionCreator : AbstractOptionCreator<RangeValue, Slider, float>
     {
-        protected override void SetProduct(OptionTemplate option, RangeValue value)
+        protected override void SetProduct(OptionItem option, RangeValue value)
         {
             Slider T1 = (Slider)option.VariableComponent;
             T1.value = value.Variable;
             T1.onValueChanged.AddListener((float x) => value.Variable = x);
         }
 
-        protected override void SetVariableComponent(OptionTemplate option)
+        protected override void SetVariableComponent(OptionItem option)
         {
             var c = option.AddVariableComponent<Slider>(DC.CreateSlider(new DC.Resources()));
             c.fillRect.anchorMin = Vector2.zero;
@@ -23,7 +23,7 @@ namespace JAL.UI
             
             // Fill
             RectTransform rt;
-            
+
             rt = c.transform.Find("Fill Area").GetComponent<RectTransform>();
             rt.anchorMin = Vector2.zero;
             rt.anchorMax = Vector2.one;

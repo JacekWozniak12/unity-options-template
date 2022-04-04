@@ -12,7 +12,10 @@ namespace JAL.UI
         where T : IValueType<T2>
         where T1 : Component
     {
-        [SerializeField] protected OptionTemplate template;
+        [SerializeField] protected OptionItem template;
+
+        protected abstract void SetProduct(OptionItem option, T value);
+        protected abstract void SetVariableComponent(OptionItem option);
 
         protected override sealed void Awake()
         {
@@ -21,33 +24,48 @@ namespace JAL.UI
             SetGameObjectTemplate();
         }
 
-        protected abstract void SetProduct(OptionTemplate option, T value);
-        protected abstract void SetVariableComponent(OptionTemplate option);
-
         public virtual GameObject Produce(T value)
         {
-            OptionTemplate option = Instantiate(template, transform);
+            OptionItem option = Instantiate(template, transform);
             SetLabel(option, value.Name);
             SetVariableComponent(option);
             SetProduct(option, value);
             SetGameObject(option, value);
+            StandarizeSettings(option);
             return option.gameObject;
         }
 
-        protected virtual OptionTemplate CreateTemplate()
+        private void StandarizeSettings(OptionItem option)
+        {
+            StandarizeFontSettings(option);
+        }
+
+        private void StandarizeFontSettings(OptionItem option)
+        {
+            TextMeshProUGUI[] textComponents = option.VariableHolder.GetComponentsInChildren<TextMeshProUGUI>();
+            if (textComponents.Length > 0)
+            {
+                foreach (var component in textComponents)
+                {
+                    component.fontSize = 32;
+                }
+            }
+        }
+
+        protected virtual OptionItem CreateTemplate()
         {
             GameObject group = new GameObject(typeof(T).ToString());
-            OptionTemplate template = group.AddComponent<OptionTemplate>();
+            OptionItem template = group.AddComponent<OptionItem>();
             template.Setup();
             return template;
         }
 
-        protected virtual void SetGameObject(OptionTemplate option, T value)
+        protected virtual void SetGameObject(OptionItem option, T value)
         {
             option.gameObject.name = $"Object - {value.Name}";
         }
 
-        protected virtual void SetLabel(OptionTemplate template, string name)
+        protected virtual void SetLabel(OptionItem template, string name)
         {
             template.LabelHolder.GetComponent<TextMeshProUGUI>().text = name;
         }

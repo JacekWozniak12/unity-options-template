@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 namespace JAL.UI
 {
-    public class OptionTemplate : MonoBehaviour
+    public class OptionItem : MonoBehaviour
     {
         public GameObject LabelHolder;
         public GameObject VariableHolder;
