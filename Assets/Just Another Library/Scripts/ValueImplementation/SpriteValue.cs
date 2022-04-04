@@ -6,7 +6,8 @@ namespace JAL
     [System.Serializable]
     public class SpriteValue : AbstractValue<Sprite>, IImplementOtherValueType
     {
-        public SpriteValue(string name, Sprite variable, System.Action<Sprite> evt, string group = null, string subGroup = null) : base(name, variable, evt, group, subGroup)
+        public SpriteValue(string name, Sprite variable, System.Action<Sprite>[] events = null, string group = null, string subGroup = null) 
+        : base(name, variable, events, group, subGroup)
         {
         }
 

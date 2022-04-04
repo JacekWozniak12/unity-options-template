@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 namespace JAL
 {
@@ -7,7 +6,7 @@ namespace JAL
     {
         [SerializeField] protected string _name = "";
         [SerializeField] protected T _variable = default;
-        [SerializeField] public event System.Action<T> ValueChanged;
+        [SerializeField] public System.Action<T> ValueChanged;
 
         public string Name
         {
@@ -32,33 +31,27 @@ namespace JAL
 
         public string GroupName
         {
-            get;
-            private set;
+            get; private set;
         }
 
         public string SubGroupName
         {
-            get;
-            private set;
+            get; private set;
         }
 
-        #region Constructors
-
         public AbstractValue(
-            string name, 
-            T variable, 
-            System.Action<T> evt, 
-            string group = null, 
+            string name,
+            T variable,
+            System.Action<T>[] events = null,
+            string group = null,
             string subGroup = null)
         {
             Name = name;
             Variable = variable;
-            ValueChanged += evt;
+            foreach (var evt in events) ValueChanged += evt;
             GroupName = group;
             SubGroupName = subGroup;
         }
-
-        #endregion
 
         /// <summary>
         /// Defines the type of Variable that is observed
@@ -75,5 +68,9 @@ namespace JAL
             creator.CreateValueHandler(this);
             return this;
         }
+
+        public void EventAdd(System.Action<T> evt) => ValueChanged += evt;
+        public void EventDelete(System.Action<T> evt) => ValueChanged -= evt;
+        public void EventsClearUp() => ValueChanged = null;
     }
 }

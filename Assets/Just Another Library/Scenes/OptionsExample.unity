@@ -829,7 +829,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 7
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -884,17 +884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b97d9b05d91532418a3013d70c2e3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionDecimal:
-    _name: 
-    _variable: 0
-  optionInteger:
-    _name: 
-    _variable: 0
-  optionString:
-    _name: 
-    _variable: 
-  optionRange:
-    _name: 
+  rangeValue:
+    _name: "Warto\u015B\u0107 Testowa"
     _variable: 0
 --- !u!4 &885704616
 Transform:

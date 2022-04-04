@@ -5,7 +5,11 @@ using UnityEngine;
 public class Mockup : MonoBehaviour
 {
     [SerializeField]
-    RangeValue rangeValue = new RangeValue("t", 0, (x) => Debug.Log(x));
+    RangeValue rangeValue = new RangeValue(
+        "Range Value",
+        0,
+        new System.Action<float>[] { (x) => Debug.Log(x) }
+        );
 
     private void Start()
     {

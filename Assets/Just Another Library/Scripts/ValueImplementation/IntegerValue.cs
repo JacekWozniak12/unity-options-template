@@ -1,12 +1,11 @@
 using System;
-using UnityEngine;
 
 namespace JAL
 {
     [System.Serializable]
     public class IntegerValue : AbstractValue<int>
     {
-        public IntegerValue(string name, int variable, Action<int> evt, string group = null, string subGroup = null) : base(name, variable, evt, group, subGroup)
+        public IntegerValue(string name, int variable, Action<int>[] evt, string group = null, string subGroup = null) : base(name, variable, evt, group, subGroup)
         {
         }
 
