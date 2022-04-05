@@ -13,4 +13,3 @@ namespace JAL
         public override int ValueConversion(int variable) => variable;
     }
 }
-

@@ -2,17 +2,10 @@ using JAL;
 using JAL.UI;
 using UnityEngine;
 
-public class Mockup : MonoBehaviour
+[ValueClassSubscriber(typeof(OptionsManager))]
+public class Mockup : MonoBehaviour, IAbstractValueImplementator
 {
     [SerializeField]
-    RangeValue rangeValue = new RangeValue(
-        "Range Value",
-        0,
-        new System.Action<float>[] { (x) => Debug.Log(x) }
-        );
-
-    private void Start()
-    {
-        rangeValue.SubscribeTo(OptionsManager.Instance);
-    }
+    [UI_Game_Tooltip("this is range value")]
+    RangeValue rangeValue = new RangeValue("Range Value", 0, new System.Action<float>[] { (x) => Debug.Log(x) });
 }

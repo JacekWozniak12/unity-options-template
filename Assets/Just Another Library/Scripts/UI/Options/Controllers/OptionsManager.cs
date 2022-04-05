@@ -44,7 +44,7 @@ namespace JAL
 
         private GameObject ImplementOtherValueType(IValueType value)
         {
-            if (value is IImplementOtherValueType otherImplementator)
+            if (value is ICreateUIForOtherValueType otherImplementator)
                 return otherImplementator.GetUIImplementation();
             else
                 return null;

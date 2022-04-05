@@ -1,18 +1,34 @@
+using JAL.Extenders;
 using UnityEngine;
 namespace JAL
 {
-    [System.Serializable]
-    public abstract class AbstractValue<T> : IValueType<T>
+    public abstract class AbstractValue
     {
         [SerializeField] protected string _name = "";
-        [SerializeField] protected T _variable = default;
-        [SerializeField] public System.Action<T> ValueChanged;
 
         public string Name
         {
             get => _name;
             protected set => _name = value;
         }
+
+        public string GroupName
+        {
+            get; protected set;
+        }
+
+        public string SubGroupName
+        {
+            get; protected set;
+        }
+    }
+
+    [System.Serializable]
+    public abstract class AbstractValue<T> : AbstractValue, IValueType<T>
+    {
+        [SerializeField] protected T _variable = default;
+        [SerializeField] public System.Action<T> ValueChanged;
+
 
         public T Variable
         {
@@ -27,16 +43,6 @@ namespace JAL
                     ValueChanged?.Invoke(_variable);
                 }
             }
-        }
-
-        public string GroupName
-        {
-            get; private set;
-        }
-
-        public string SubGroupName
-        {
-            get; private set;
         }
 
         public AbstractValue(
@@ -63,14 +69,9 @@ namespace JAL
         /// </summary>
         public abstract T ValueConversion(T variable);
 
-        public AbstractValue<T> SubscribeTo(IManageValues creator)
-        {
-            creator.CreateValueHandler(this);
-            return this;
-        }
-
         public void EventAdd(System.Action<T> evt) => ValueChanged += evt;
         public void EventDelete(System.Action<T> evt) => ValueChanged -= evt;
         public void EventsClearUp() => ValueChanged = null;
+
     }
 }
