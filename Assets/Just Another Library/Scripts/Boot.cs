@@ -21,6 +21,7 @@ namespace JAL
         {
             AbstractValueCollector abstractValueCollector = gameObject.AddComponent<AbstractValueCollector>();
             onScenesLoaded += abstractValueCollector.Collect;
+            StartCoroutine(LoadEntryScenes());
         }
 
         IEnumerator LoadEntryScenes()
