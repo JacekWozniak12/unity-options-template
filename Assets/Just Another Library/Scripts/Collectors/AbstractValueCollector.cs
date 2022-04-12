@@ -50,7 +50,12 @@ namespace JAL
                     {
                         if (field.FieldType.IsSubclassOf(typeof(AbstractValue)))
                         {
-                            
+                            var t = Activator.CreateInstance(type);
+                            if (field.GetValue(t) is AbstractValue val)
+                            {
+                                Collection.Add(val);
+                                m.CreateValueHandler((IValueType) val);
+                            }
                         }
                     }
                 }

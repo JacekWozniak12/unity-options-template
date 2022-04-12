@@ -29,7 +29,6 @@ namespace JAL
         [SerializeField] protected T _variable = default;
         [SerializeField] public System.Action<T> ValueChanged;
 
-
         public T Variable
         {
             get => _variable;
@@ -72,6 +71,5 @@ namespace JAL
         public void EventAdd(System.Action<T> evt) => ValueChanged += evt;
         public void EventDelete(System.Action<T> evt) => ValueChanged -= evt;
         public void EventsClearUp() => ValueChanged = null;
-
     }
 }
