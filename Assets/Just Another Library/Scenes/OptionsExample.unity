@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeValue:
-    _name: 321
+    _name: Zakres
     _variable: 1
 --- !u!4 &885704616
 Transform:
