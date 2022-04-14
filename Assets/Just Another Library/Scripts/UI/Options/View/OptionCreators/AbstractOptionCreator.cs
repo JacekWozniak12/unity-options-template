@@ -14,7 +14,7 @@ namespace JAL.UI
         where T : IValueType<T2>
         where T1 : Component
     {
-        [SerializeField] protected OptionItem template;
+        protected OptionItem template;
 
         protected abstract void SetProduct(OptionItem option, T value);
         protected abstract void SetVariableComponent(OptionItem option);

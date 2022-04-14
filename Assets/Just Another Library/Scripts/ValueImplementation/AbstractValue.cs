@@ -1,7 +1,4 @@
 using UnityEngine;
-using System;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace JAL
 {
@@ -40,13 +37,14 @@ namespace JAL
 
         public AbstractValue(
             T variable,
-            string name,
+            string name = null,
             System.Action<T>[] events = null,
             string group = null,
             string subGroup = null)
         {
             if (name != null && name.Length != 0) Name = name;
-            else name = GetType().Name;
+            else
+                Name = "ERR: check variable name";
 
             Variable = variable;
             GroupName = group;

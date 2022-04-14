@@ -4,6 +4,6 @@ namespace JAL
 {
     public interface ITooltipDisplayer
     {
-        string Display(GameTooltipAttribute tooltipAttribute);
+        string Display(UI_TooltipAttribute tooltipAttribute);
     }
 }

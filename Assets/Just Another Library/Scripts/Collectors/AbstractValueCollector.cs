@@ -40,6 +40,7 @@ namespace JAL
                     if (a == null) continue;
 
                     var m = Managers.First(x => x.GetType() == a.Manager);
+                    if (m == null) Debug.LogError($"Create and set manager of type {a.Manager}");
 
                     FieldInfo[] fields = type.GetFields(
                         BindingFlags.Public | BindingFlags.NonPublic |

@@ -2,17 +2,25 @@ using System;
 
 namespace JAL
 {
+    /// <summary>
+    /// Handles UI tooltip attribute. For attribute implementation
+    /// </summary>
     [System.AttributeUsage(System.AttributeTargets.Field | System.AttributeTargets.Property)]
-    public sealed class GameTooltipAttribute : System.Attribute
+    public sealed class UI_TooltipAttribute : System.Attribute
     {
-        public readonly string Tooltip;
+        public string Name;
+        public string Field;
 
-        public GameTooltipAttribute(string tooltip)
+        public UI_TooltipAttribute(string name, string field = "")
         {
-            Tooltip = tooltip;
+            Name = name;
+            Field = field;
         }
     }
 
+    /// <summary>
+    /// Connects entire class with IManageValues Manager.
+    /// </summary>
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public sealed class ValueClassSubscriberAttribute : System.Attribute
     {

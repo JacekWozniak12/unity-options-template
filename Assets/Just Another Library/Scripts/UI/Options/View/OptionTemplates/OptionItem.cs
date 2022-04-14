@@ -33,6 +33,7 @@ namespace JAL.UI
             if (VariableComponent == null)
                 Debug.LogWarning("Object does not have specified component type. Change creator", resultOfCreator);
 
+            VariableHolder.AddComponent<UI_GetGameObject>().EscapeTo = this.gameObject;
             return VariableComponent as T1;
         }
 
@@ -41,6 +42,7 @@ namespace JAL.UI
             gameObject.AddComponent<RectTransform>();
             gameObject.AddComponent<HorizontalLayoutGroup>();
             gameObject.UI_CreateLayoutElement(minHeight: 75);
+            gameObject.AddComponent<Image>();
             SetLabelHolder();
         }
 
@@ -61,6 +63,8 @@ namespace JAL.UI
             RectTransform rt = LabelHolder.GetComponent<RectTransform>();
             rt.SetAnchorsStretched();
             rt.SetDefault();
+
+            LabelHolder.AddComponent<UI_GetGameObject>().EscapeTo = this.gameObject;
         }
 
         private void SetVariableHolder()
