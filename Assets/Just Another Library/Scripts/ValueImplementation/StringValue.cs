@@ -3,8 +3,11 @@ namespace JAL
     [System.Serializable]
     public class StringValue : AbstractValue<string>
     {
-        public StringValue(string name, string variable, System.Action<string>[] events = null, string group = null, string subGroup = null) 
-        : base(name, variable, events, group, subGroup)
+        public StringValue(string variable,
+                           string name = null,
+                           System.Action<string>[] events = null,
+                           string group = null,
+                           string subGroup = null) : base(variable, name, events, group, subGroup)
         {
         }
 

@@ -1,4 +1,8 @@
 using UnityEngine;
+using System;
+using System.Diagnostics;
+using System.Reflection;
+
 namespace JAL
 {
     public abstract class AbstractValue
@@ -35,17 +39,20 @@ namespace JAL
         }
 
         public AbstractValue(
-            string name,
             T variable,
+            string name,
             System.Action<T>[] events = null,
             string group = null,
             string subGroup = null)
         {
-            Name = name;
+            if (name != null && name.Length != 0) Name = name;
+            else name = GetType().Name;
+
             Variable = variable;
-            foreach (var evt in events) ValueChanged += evt;
             GroupName = group;
             SubGroupName = subGroup;
+
+            foreach (var evt in events) ValueChanged += evt;
         }
 
         /// <summary>

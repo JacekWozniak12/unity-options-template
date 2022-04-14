@@ -6,5 +6,6 @@ public class Mockup : MonoBehaviour, IAbstractValueImplementator
 {
     [SerializeField]
     [GameTooltip("this is range value")]
-    RangeValue rangeValue = new RangeValue("Test", 0, new System.Action<float>[] { (x) => Debug.Log(x) });
+    RangeValue r3232131ange = new RangeValue(0, events: new System.Action<float>[] { (x) => Debug.Log(x) });
+
 }
