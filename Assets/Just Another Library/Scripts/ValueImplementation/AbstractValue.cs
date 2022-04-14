@@ -1,4 +1,3 @@
-using JAL.Extenders;
 using UnityEngine;
 namespace JAL
 {
@@ -12,15 +11,8 @@ namespace JAL
             protected set => _name = value;
         }
 
-        public string GroupName
-        {
-            get; protected set;
-        }
-
-        public string SubGroupName
-        {
-            get; protected set;
-        }
+        public string GroupName { get; protected set; }
+        public string SubGroupName { get; protected set; }
     }
 
     [System.Serializable]
@@ -34,8 +26,6 @@ namespace JAL
             get => _variable;
             set
             {
-                // Hack -> if _variable is class object then 
-                // using .Equals throws null reference. 
                 if (_variable == null || !_variable.Equals(value))
                 {
                     _variable = ValueConversion(value);
@@ -70,6 +60,6 @@ namespace JAL
 
         public void EventAdd(System.Action<T> evt) => ValueChanged += evt;
         public void EventDelete(System.Action<T> evt) => ValueChanged -= evt;
-        public void EventsClearUp() => ValueChanged = null;
+        public void EventContainerClearUp() => ValueChanged = null;
     }
 }

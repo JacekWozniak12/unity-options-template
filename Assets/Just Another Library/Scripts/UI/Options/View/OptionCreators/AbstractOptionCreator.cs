@@ -37,7 +37,7 @@ namespace JAL.UI
             return option.gameObject;
         }
 
-        private void StandarizeSettings(OptionItem option)
+        protected void StandarizeSettings(OptionItem option)
         {
             StandarizeFontSettings(option);
         }
@@ -46,7 +46,7 @@ namespace JAL.UI
         {
             TextMeshProUGUI[] textComponents = option.VariableHolder.GetComponentsInChildren<TextMeshProUGUI>().
                 Union(option.LabelHolder.GetComponentsInChildren<TextMeshProUGUI>()).ToArray();
-            
+
             if (textComponents.Length > 0)
             {
                 foreach (var component in textComponents)
@@ -66,19 +66,12 @@ namespace JAL.UI
             return template;
         }
 
-        protected virtual void SetGameObject(OptionItem option, T value)
-        {
+        protected virtual void SetGameObject(OptionItem option, T value) =>
             option.gameObject.name = $"Object - {value.Name}";
-        }
 
-        protected virtual void SetLabel(OptionItem template, string name)
-        {
+        protected virtual void SetLabel(OptionItem template, string name) =>
             template.LabelHolder.GetComponent<TextMeshProUGUI>().text = name;
-        }
-
-        private void SetGameObjectTemplate()
-        {
+        private void SetGameObjectTemplate() =>
             template.transform.SetParent(this.transform, false);
-        }
     }
 }

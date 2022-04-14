@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using System.Reflection;
 using UnityEngine;
-using System.Linq;
-using System;
 
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 namespace JAL
 {
     /// <summary>
@@ -28,33 +27,32 @@ namespace JAL
             }
         }
 
-        private void CollectAbstractValues(GameObject[] root)
+        private void CollectAbstractValues(GameObject[] rootGameObjects)
         {
-            foreach (GameObject o in root)
+            foreach (GameObject root in rootGameObjects)
             {
                 // Attribute section
-                IAbstractValueImplementator[] col = o.GetComponentsInChildren<IAbstractValueImplementator>();
-                foreach (var c in col)
+                var components = root.GetComponentsInChildren<IAbstractValueImplementator>();
+                foreach (var childrenComponent in components)
                 {
-                    Type type = c.GetType();
-                    ValueClassSubscriberAttribute a = type.GetCustomAttribute<ValueClassSubscriberAttribute>();
+                    var type = childrenComponent.GetType();
+                    var a = type.GetCustomAttribute<ValueClassSubscriberAttribute>();
                     if (a == null) continue;
+
                     var m = Managers.First(x => x.GetType() == a.Manager);
 
                     FieldInfo[] fields = type.GetFields(
-                        BindingFlags.NonPublic |
+                        BindingFlags.Public | BindingFlags.NonPublic |
                         BindingFlags.Instance
                     );
 
                     foreach (FieldInfo field in fields)
                     {
-                        if (field.FieldType.IsSubclassOf(typeof(AbstractValue)))
+                        if (field.FieldType.IsSubclassOf(typeof(AbstractValue))
+                            && field.GetValue(childrenComponent) is AbstractValue val)
                         {
-                            if (field.GetValue(c) is AbstractValue val)
-                            {
-                                Collection.Add(val);
-                                m.CreateValueHandler((IValueType)val);
-                            }
+                            Collection.Add(val);
+                            m.CreateValueHandler((IValueType)val);
                         }
                     }
                 }
