@@ -46,6 +46,8 @@ namespace JAL
                 CollectDataFromMonoBehaviours(previous);
             }
 
+            Debug.Log(previousAttributes.Count);
+
             HandleTooltip(
                 CollectDataFromAttributes(previousAttributes.ToArray())
                 );
@@ -107,24 +109,8 @@ namespace JAL
                 FieldInfo f = t.Item2;
 
                 UI_TooltipAttribute attr = f.GetCustomAttribute<UI_TooltipAttribute>();
-
-                string value;
-                if (attr.Field.Length > 0)
-                {
-                    var searchedField = f.GetValue(t.Item1);
-
-                    value = searchedField
-                        .GetType().GetField(attr.Field,
-                            BindingFlags.NonPublic |
-                            BindingFlags.Public |
-                            BindingFlags.Instance
-                            )
-                        .GetValue(searchedField)
-                        .ToString();
-                }
-                else value = f.GetValue(t.Item1).ToString();
-
-                content += $"\n{attr.Name}: {value}";
+                string value = f.GetValue(t.Item1).ToString();
+                content += $"\n{attr.Description}";
             }
 
             return content;

@@ -2,7 +2,7 @@ using JAL;
 using UnityEngine;
 
 [ValueClassSubscriber(typeof(OptionsManager))]
-public class Mockup : MonoBehaviour, IAbstractValueImplementator
+public class Mockup : MonoBehaviour, IValueAttributeImplementator
 {
     [SerializeField]
     [UI_Tooltip("This is range value")]

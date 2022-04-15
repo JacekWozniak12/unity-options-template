@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System;
+
 namespace JAL
 {
     /// <summary>
@@ -22,7 +24,7 @@ namespace JAL
             foreach (Scene scene in scenes)
             {
                 GameObject[] root = scene.GetRootGameObjects();
-                CollectManagersFromScene(root);
+                CollectValueManagersFromScene(root);
                 CollectAbstractValues(root);
             }
         }
@@ -32,35 +34,57 @@ namespace JAL
             foreach (GameObject root in rootGameObjects)
             {
                 // Attribute section
-                var components = root.GetComponentsInChildren<IAbstractValueImplementator>();
-                foreach (var childrenComponent in components)
-                {
-                    var type = childrenComponent.GetType();
-                    var a = type.GetCustomAttribute<ValueClassSubscriberAttribute>();
-                    if (a == null) continue;
-
-                    var m = Managers.First(x => x.GetType() == a.Manager);
-                    if (m == null) Debug.LogError($"Create and set manager of type {a.Manager}");
-
-                    FieldInfo[] fields = type.GetFields(
-                        BindingFlags.Public | BindingFlags.NonPublic |
-                        BindingFlags.Instance
-                    );
-
-                    foreach (FieldInfo field in fields)
-                    {
-                        if (field.FieldType.IsSubclassOf(typeof(AbstractValue))
-                            && field.GetValue(childrenComponent) is AbstractValue val)
-                        {
-                            Collection.Add(val);
-                            m.CreateValueHandler((IValueType)val);
-                        }
-                    }
-                }
+                var components = root.GetComponentsInChildren<IValueAttributeImplementator>();
+                CreateValueHandlersInComponents(components);
             }
         }
 
-        private void CollectManagersFromScene(GameObject[] root)
+        private void CreateValueHandlersInComponents(IValueAttributeImplementator[] components)
+        {
+            foreach (var childrenComponent in components)
+            {
+                // Get custom attribute
+                var type = childrenComponent.GetType();
+                var a = type.GetCustomAttribute<ValueClassSubscriberAttribute>();
+                if (a == null) continue;
+
+                // Get manager
+                var m = Managers.First(x => x.GetType() == a.Manager);
+                if (m != null) CreateValueHandlersFromFields(childrenComponent, type, m);
+                else Debug.LogError($"Create and set manager of type {a.Manager}");
+            }
+        }
+
+        private void CreateValueHandlersFromFields(
+            IValueAttributeImplementator childrenComponent,
+            Type type,
+            IManageValues manager)
+        {
+            FieldInfo[] fields = type.GetFields(
+                BindingFlags.Public | BindingFlags.NonPublic |
+                BindingFlags.Instance
+            );
+
+            foreach (FieldInfo field in fields)
+            {
+                CreateValueHandlerFromField(childrenComponent, manager, field);
+            }
+        }
+
+        private void CreateValueHandlerFromField(
+            IValueAttributeImplementator childrenComponent,
+            IManageValues manager,
+            FieldInfo field)
+        {
+            if (field.FieldType.IsSubclassOf(typeof(AbstractValue))
+                && field.GetValue(childrenComponent) is AbstractValue val)
+            {
+                Collection.Add(val);
+                manager.CreateValueHandler((IValueType)val);
+            }
+        }
+
+        private void CollectValueManagersFromScene(GameObject[] root)
         {
             foreach (GameObject o in root)
             {

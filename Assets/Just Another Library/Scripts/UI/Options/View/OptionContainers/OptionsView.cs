@@ -7,7 +7,7 @@ namespace JAL.UI
     public class OptionsView : MonoBehaviour
     {
         public OptionGroup MainGroup;
-        public List<OptionGroup> Groups = new List<OptionGroup>();
+        public List<OptionGroup> ListOfGroups = new List<OptionGroup>();
         public RectTransform optionList;
         public RectTransform optionGroupButtons;
 
@@ -18,14 +18,14 @@ namespace JAL.UI
             MainGroup.GetComponent<RectTransform>().SetAnchorsStretched();
             MainGroup.Setup(optionGroupButtons, () => SelectGroup(MainGroup));
             gameObject.UI_CreateVerticalLayoutGroup();
-            Groups.Add(MainGroup);
-            if(Groups.Count < 2) optionGroupButtons.gameObject.SetActive(false);
+            ListOfGroups.Add(MainGroup);
+            if(ListOfGroups.Count < 2) optionGroupButtons.gameObject.SetActive(false);
         }
 
         public void SelectGroup(OptionGroup group = null)
         {
             if(group == null) group = MainGroup;
-            foreach(var g in Groups)
+            foreach(var g in ListOfGroups)
             {
                 g.gameObject.SetActive(false);
                 group.gameObject.SetActive(true);

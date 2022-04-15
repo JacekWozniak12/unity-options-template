@@ -7,7 +7,7 @@ namespace JAL.UI
 {
     public class OptionGroup : MonoBehaviour, IValueGroup
     {
-        public List<OptionSubGroup> SubGroups = new List<OptionSubGroup>();
+        public List<OptionSubGroup> ListOfSubGroups = new List<OptionSubGroup>();
         public OptionSubGroup Main;
 
         OptionGroupButton buttonHolder;

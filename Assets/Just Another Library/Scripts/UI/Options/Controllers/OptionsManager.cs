@@ -6,10 +6,7 @@ namespace JAL
     {
         [SerializeField] OptionsView optionsView;
 
-        private void Start()
-        {
-            optionsView.SelectGroup();
-        }
+        private void Start() => optionsView.SelectGroup();
 
         public void CreateValueHandler(IValueType value)
         {
@@ -59,13 +56,14 @@ namespace JAL
             // Setting the group and subgroup tabs;
             if (value.GroupName != null)
             {
-                group = optionsView.Groups.Find(x => x.name == value.GroupName);
+                group = optionsView.ListOfGroups.Find(
+                    x => x.name == value.GroupName);
 
                 if (group == null)
                 {
                     temp = new GameObject(value.GroupName);
                     group = temp.AddComponent<OptionGroup>();
-                    optionsView.Groups.Add(group);
+                    optionsView.ListOfGroups.Add(group);
                     group.Setup(optionsView.optionGroupButtons, () => optionsView.SelectGroup(group));
                     group.transform.SetParent(optionsView.optionList.transform, false);
                 }
@@ -74,12 +72,13 @@ namespace JAL
 
             if (value.SubGroupName != null)
             {
-                subGroup = group.SubGroups.Find(x => x.name == value.SubGroupName);
+                subGroup = group.ListOfSubGroups.Find(
+                    x => x.name == value.SubGroupName);
                 if (subGroup == null)
                 {
                     temp = new GameObject(value.SubGroupName);
                     subGroup = temp.AddComponent<OptionSubGroup>();
-                    group.SubGroups.Add(subGroup);
+                    group.ListOfSubGroups.Add(subGroup);
                     subGroup.transform.SetParent(group.transform, false);
                     subGroup.CreateSubGroupHeader(value.SubGroupName);
                 }
