@@ -11,13 +11,15 @@ namespace JAL
     /// <summary>
     /// Handles the subscription via ValueClassSubscriberAttribute
     /// </summary>
-    public class AbstractValueCollector : MonoBehaviourSingleton<AbstractValueCollector>
+    public class AbstractValueCollector : MonoBehaviourSingleton<AbstractValueCollector>, ISceneLoadSubscriber, ICollect
     {
         [SerializeField]
         private List<AbstractValue> Collection = new List<AbstractValue>();
 
         [SerializeField]
         private List<IManageValues> Managers = new List<IManageValues>();
+
+        public void OnLoadAction(Scene[] scenes) => Collect(scenes);
 
         public void Collect(Scene[] scenes)
         {
@@ -66,9 +68,7 @@ namespace JAL
             );
 
             foreach (FieldInfo field in fields)
-            {
                 CreateValueHandlerFromField(childrenComponent, manager, field);
-            }
         }
 
         private void CreateValueHandlerFromField(

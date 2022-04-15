@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -7,24 +8,37 @@ namespace JAL
 {
     public class Boot : MonoBehaviourSingleton<Boot>
     {
+        [Header("Initialization")]
         [SerializeField]
         public SceneContainer SceneContainer;
 
-        [Header("Style Containers")]
         [SerializeField]
+        [Tooltip("Gets children Monobehaviours that have ICollect and ISceneLoadSubscriber")]
+        public GameObject CollectorsContainer;
+
+        [Header("Style")]
         public UIStyleContainer DefaultUIStyle;
 
-        public System.Action<Scene[]> onScenesLoaded;
-        public System.Action<Scene[]> onScenesUnloaded;
+        private System.Action<Scene[]> onScenesLoaded;
+        private System.Action<Scene[]> onScenesUnloaded;
 
-        void Start()
+        private void Start()
         {
-            AbstractValueCollector abstractValueCollector = gameObject.AddComponent<AbstractValueCollector>();
-            onScenesLoaded += abstractValueCollector.Collect;
+            GetCollectors();
             StartCoroutine(LoadEntryScenes());
         }
 
-        IEnumerator LoadEntryScenes()
+        private void GetCollectors()
+        {
+            var collectors = CollectorsContainer.GetComponentsInChildren<ICollect>();
+            foreach (ICollect collector in collectors)
+            {
+                if (collector is ISceneLoadSubscriber s)
+                    onScenesLoaded += s.OnLoadAction;
+            }
+        }
+
+        private IEnumerator LoadEntryScenes()
         {
             List<Scene> ScenesLoaded = new List<Scene>();
 
