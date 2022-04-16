@@ -13,6 +13,12 @@ namespace JAL
         [SerializeField]
         GraphicRaycaster graphicRaycaster;
 
+        [SerializeField]
+        float minimalTreshold = 15f;
+
+        [SerializeField]
+        float maximalTreshold = 20f;
+
         Vector3 previous;
 
         private void Awake()
@@ -22,11 +28,14 @@ namespace JAL
 
         private void Update()
         {
-            if (Input.mousePosition != previous)
+            float test = Vector2.SqrMagnitude(Input.mousePosition - previous);
+
+            if (test > minimalTreshold && test < maximalTreshold)
             {
                 var go = GetGameObject();
                 hoverOnSceneEvent?.Invoke(go);
             }
+
             previous = Input.mousePosition;
         }
 

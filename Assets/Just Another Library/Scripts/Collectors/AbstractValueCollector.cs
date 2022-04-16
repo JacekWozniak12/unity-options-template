@@ -30,7 +30,7 @@ namespace JAL
                 var objects = SceneGameObjectCollector.Instance.GetGameObjectsFromScene(scene);
                 temp.AddRange(objects);
             }
-
+            CollectValueManagersFromScene(temp.ToArray());
             CollectAbstractValues(temp.ToArray());
         }
 
@@ -63,8 +63,11 @@ namespace JAL
 
                 // Get manager
                 var m = Managers.First(x => x.GetType() == a.Manager);
-                if (m != null) CreateValueHandlersFromFields(childrenComponent, type, m);
-                else Debug.LogError($"Create and set manager of type {a.Manager}");
+                
+                if (m != null)
+                    CreateValueHandlersFromFields(childrenComponent, type, m);
+                else
+                    Debug.LogError($"Create and set manager of type {a.Manager}");
             }
         }
 
@@ -95,9 +98,9 @@ namespace JAL
             }
         }
 
-        private void CollectValueManagersFromScene(GameObject[] root)
+        private void CollectValueManagersFromScene(GameObject[] objects)
         {
-            foreach (GameObject o in root)
+            foreach (GameObject o in objects)
             {
                 // Menager section
                 IManageValues[] managers = o.GetComponentsInChildren<IManageValues>();

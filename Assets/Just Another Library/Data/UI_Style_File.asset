@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c87927aa132824183c4ec5039965a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bb2fdf85dcdc844e8cf91a023a2247b, type: 3}
   m_Name: UI_Style_File
   m_EditorClassIdentifier: 
   FontSize: 32

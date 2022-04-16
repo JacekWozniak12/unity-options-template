@@ -11,8 +11,8 @@ namespace JAL
     /// <summary>
     /// Handles the subscription via ValueClassSubscriberAttribute
     /// </summary>
-    public class UITooltipCollector : 
-        MonoBehaviourSingleton<UITooltipCollector>, 
+    public class UITooltipCollector :
+        MonoBehaviourSingleton<UITooltipCollector>,
         ICollect
     {
         [SerializeField]
@@ -43,20 +43,10 @@ namespace JAL
             {
                 // Attribute section
                 var components = gameObject.GetComponentsInChildren<ITooltipAttributeImplementator>();
-                
+
                 foreach (var childrenComponent in components)
                 {
                     var type = childrenComponent.GetType();
-                    UI_GetTooltip uiTooltipComponent = null;
-
-                    if (childrenComponent is Component c)
-                    {
-                        uiTooltipComponent = c.GetComponent<UI_GetTooltip>();
-
-                        if (uiTooltipComponent == null)
-                            uiTooltipComponent = c.gameObject.AddComponent<UI_GetTooltip>();
-                    }
-                    else continue;
 
                     FieldInfo[] fields = type.GetFields(
                         BindingFlags.Public | BindingFlags.NonPublic |
@@ -65,11 +55,25 @@ namespace JAL
 
                     foreach (FieldInfo field in fields)
                     {
-                        var t = field.FieldType.GetCustomAttribute<UI_TooltipAttribute>();
-                        if (t != null)
-                        {
-                            uiTooltipComponent.Tooltip += $"\n{t.Description}";
-                        }
+                        // TODO: what to do with tooltips runtime created from other script 
+                        
+                        // var t = field.FieldType.GetCustomAttribute<UI_TooltipAttribute>();
+
+                        // UI_GetTooltip uiTooltipComponent = null;
+
+                        // if (childrenComponent is Component c)
+                        // {
+                        //     uiTooltipComponent = c.GetComponent<UI_GetTooltip>();
+
+                        //     if (uiTooltipComponent == null)
+                        //         uiTooltipComponent = c.gameObject.AddComponent<UI_GetTooltip>();
+                        // }
+                        // else continue;
+
+                        // if (t != null)
+                        // {
+                        //     uiTooltipComponent.Tooltip += $"\n{t.Description}";
+                        // }
                     }
                 }
             }

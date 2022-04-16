@@ -14,7 +14,7 @@ public class Mockup :
         events: new System.Action<float>[] {
             (x) =>
             {
-                Debug.Log(x);
+                // Debug.Log(x);
             }
         });
 
