@@ -19,26 +19,32 @@ namespace JAL
         [SerializeField]
         private List<IManageValues> Managers = new List<IManageValues>();
 
-        public void OnLoadAction(Scene[] scenes) => Collect(scenes);
+        public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
 
-        public void Collect(Scene[] scenes)
+        public void CollectFrom(Scene[] scenes)
         {
+            List<GameObject> temp = new List<GameObject>();
+
             foreach (Scene scene in scenes)
             {
-                GameObject[] root = scene.GetRootGameObjects();
-                CollectValueManagersFromScene(root);
-                CollectAbstractValues(root);
+                var objects = SceneGameObjectCollector.Instance.GetGameObjectsFromScene(scene);
+                temp.AddRange(objects);
             }
+
+            CollectAbstractValues(temp.ToArray());
         }
 
-        private void CollectAbstractValues(GameObject[] rootGameObjects)
+        private void CollectAbstractValues(GameObject[] gameObjects)
         {
-            foreach (GameObject root in rootGameObjects)
+            var ListValueImplementator = new List<IValueAttributeImplementator>();
+
+            foreach(var gameObject in gameObjects)
             {
-                // Attribute section
-                var components = root.GetComponentsInChildren<IValueAttributeImplementator>();
-                CreateValueHandlersInComponents(components);
+                var c = gameObject.GetComponent<IValueAttributeImplementator>();
+                if(c != null) ListValueImplementator.Add(c);
             }
+
+            CreateValueHandlersInComponents(ListValueImplementator.ToArray());
         }
 
         private void CreateValueHandlersInComponents(IValueAttributeImplementator[] components)

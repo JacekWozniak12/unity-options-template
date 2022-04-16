@@ -14,23 +14,27 @@ namespace JAL
         [SerializeField]
         private List<UITooltipCollector> Collection = new List<UITooltipCollector>();
 
-        public void OnLoadAction(Scene[] scenes) => Collect(scenes);
+        public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
 
-        public void Collect(Scene[] scenes)
+        public void CollectFrom(Scene[] scenes)
         {
+            List<GameObject> temp = new List<GameObject>();
+
             foreach (Scene scene in scenes)
             {
-                GameObject[] gameObjects = (GameObject[]) GameObject.FindObjectsOfType<ITooltipAttributeImplementator>().ToArray();
-                CollectAbstractValues(gameObjects);
+                var objects = SceneGameObjectCollector.Instance.GetGameObjectsFromScene(scene);
+                temp.AddRange(objects);
             }
+
+            CollectAbstractValues(temp.ToArray());
         }
 
         private void CollectAbstractValues(GameObject[] gameObjects)
         {
-            foreach (GameObject root in gameObjects)
+            foreach (GameObject gameObject in gameObjects)
             {
                 // Attribute section
-                var components = root.GetComponentsInChildren<ITooltipAttributeImplementator>();
+                var components = gameObject.GetComponentsInChildren<ITooltipAttributeImplementator>();
                 foreach (var childrenComponent in components)
                 {
                     var type = childrenComponent.GetType();
