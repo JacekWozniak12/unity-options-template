@@ -7,18 +7,13 @@ namespace JAL
 {
     public class SceneGameObjectCollector :
         MonoBehaviourSingleton<SceneGameObjectCollector>,
-        ISceneLoadSubscriber,
         ICollect
     {
         [SerializeField]
-        private List<SceneContainerForGameObjects> sceneObjects
-            = new List<SceneContainerForGameObjects>();
+        private List<SceneGameObjectsContainer> sceneObjects
+            = new List<SceneGameObjectsContainer>();
 
-        public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
-        public void OnUnloadAction(Scene[] scenes) => RemoveFrom(scenes);
-
-        public GameObject[] GetGameObjectsFromScene(Scene scene)
-            => sceneObjects.Find(x => x.SceneName == scene.name).GameObjects.ToArray();
+        public int Order => 1;
 
         public void CollectFrom(Scene[] scenes)
         {
@@ -26,13 +21,23 @@ namespace JAL
             {
                 GameObject[] roots = scene.GetRootGameObjects();
                 List<GameObject> temp = new List<GameObject>();
+                temp.AddRange(roots);
 
                 foreach (GameObject gameObject in roots)
                     GetChildRecursiveIntoList(gameObject, ref temp);
 
-                sceneObjects.Add(new SceneContainerForGameObjects(scene.name, temp));
+                sceneObjects.Add(new SceneGameObjectsContainer(scene.name, temp));
             }
         }
+
+        public void RemoveFrom(Scene[] scenes)
+        {
+            foreach (Scene scene in scenes)
+                sceneObjects.Remove(sceneObjects.Find(x => x.SceneName == scene.name));
+        }
+
+        public GameObject[] GetGameObjectsFromScene(Scene scene)
+            => sceneObjects.Find(x => x.SceneName == scene.name).GameObjects.ToArray();
 
         private void GetChildRecursiveIntoList(GameObject gameObject, ref List<GameObject> list)
         {
@@ -44,25 +49,6 @@ namespace JAL
                 list.Add(child.gameObject);
                 GetChildRecursiveIntoList(child.gameObject, ref list);
             }
-        }
-
-        private void RemoveFrom(Scene[] scenes)
-        {
-            foreach (Scene scene in scenes)
-                sceneObjects.Remove(sceneObjects.Find(x => x.SceneName == scene.name));
-        }
-    }
-
-    [System.Serializable]
-    public class SceneContainerForGameObjects
-    {
-        public string SceneName;
-        public List<GameObject> GameObjects;
-
-        public SceneContainerForGameObjects(string name, List<GameObject> list)
-        {
-            SceneName = name;
-            GameObjects = list;
         }
     }
 }

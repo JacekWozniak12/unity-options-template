@@ -11,7 +11,7 @@ namespace JAL
     /// <summary>
     /// Handles the subscription via ValueClassSubscriberAttribute
     /// </summary>
-    public class AbstractValueCollector : MonoBehaviourSingleton<AbstractValueCollector>, ISceneLoadSubscriber, ICollect
+    public class AbstractValueCollector : MonoBehaviourSingleton<AbstractValueCollector>, ICollect
     {
         [SerializeField]
         private List<AbstractValue> Collection = new List<AbstractValue>();
@@ -19,7 +19,7 @@ namespace JAL
         [SerializeField]
         private List<IManageValues> Managers = new List<IManageValues>();
 
-        public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
+        public int Order => 2;
 
         public void CollectFrom(Scene[] scenes)
         {
@@ -34,14 +34,19 @@ namespace JAL
             CollectAbstractValues(temp.ToArray());
         }
 
+        public void RemoveFrom(Scene[] scenes)
+        {
+            return;
+        }
+
         private void CollectAbstractValues(GameObject[] gameObjects)
         {
             var ListValueImplementator = new List<IValueAttributeImplementator>();
 
-            foreach(var gameObject in gameObjects)
+            foreach (var gameObject in gameObjects)
             {
                 var c = gameObject.GetComponent<IValueAttributeImplementator>();
-                if(c != null) ListValueImplementator.Add(c);
+                if (c != null) ListValueImplementator.Add(c);
             }
 
             CreateValueHandlersInComponents(ListValueImplementator.ToArray());

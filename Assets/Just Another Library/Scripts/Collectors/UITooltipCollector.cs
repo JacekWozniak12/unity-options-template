@@ -20,12 +20,6 @@ namespace JAL
 
         public int Order => 3;
 
-        public Action CollectionStarted => throw new NotImplementedException();
-
-        public Action CollectionEnded => throw new NotImplementedException();
-
-        public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
-
         public void CollectFrom(Scene[] scenes)
         {
             List<GameObject> temp = new List<GameObject>();
@@ -36,6 +30,11 @@ namespace JAL
                 temp.AddRange(objects);
             }
             CollectAbstractValues(temp.ToArray());
+        }
+
+        public void RemoveFrom(Scene[] scenes)
+        {
+            return;
         }
 
         private void CollectAbstractValues(GameObject[] gameObjects)
