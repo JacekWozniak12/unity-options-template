@@ -13,8 +13,7 @@ namespace JAL
         public SceneContainer SceneContainer;
 
         [SerializeField]
-        [Tooltip("Gets children Monobehaviours that have ICollect and ISceneLoadSubscriber")]
-        public GameObject CollectorsContainer;
+        public CollectorManager CollectorManager;
 
         [Header("Style")]
         public UIStyleContainer DefaultUIStyle;
@@ -24,18 +23,9 @@ namespace JAL
 
         private void Start()
         {
-            GetCollectors();
+            CollectorManager = CollectorManager.Instance;
+            onScenesLoaded += CollectorManager.OnLoadAction;
             StartCoroutine(LoadEntryScenes());
-        }
-
-        private void GetCollectors()
-        {
-            var collectors = CollectorsContainer.GetComponentsInChildren<ICollect>();
-            foreach (ICollect collector in collectors)
-            {
-                if (collector is ISceneLoadSubscriber s)
-                    onScenesLoaded += s.OnLoadAction;
-            }
         }
 
         private IEnumerator LoadEntryScenes()

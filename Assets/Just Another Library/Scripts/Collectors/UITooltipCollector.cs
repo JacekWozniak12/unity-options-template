@@ -4,15 +4,25 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System;
+
 namespace JAL
 {
     /// <summary>
     /// Handles the subscription via ValueClassSubscriberAttribute
     /// </summary>
-    public class UITooltipCollector : MonoBehaviourSingleton<UITooltipCollector>, ISceneLoadSubscriber, ICollect
+    public class UITooltipCollector : 
+        MonoBehaviourSingleton<UITooltipCollector>, 
+        ICollect
     {
         [SerializeField]
         private List<UITooltipCollector> Collection = new List<UITooltipCollector>();
+
+        public int Order => 3;
+
+        public Action CollectionStarted => throw new NotImplementedException();
+
+        public Action CollectionEnded => throw new NotImplementedException();
 
         public void OnLoadAction(Scene[] scenes) => CollectFrom(scenes);
 
@@ -25,7 +35,6 @@ namespace JAL
                 var objects = SceneGameObjectCollector.Instance.GetGameObjectsFromScene(scene);
                 temp.AddRange(objects);
             }
-
             CollectAbstractValues(temp.ToArray());
         }
 
@@ -35,6 +44,7 @@ namespace JAL
             {
                 // Attribute section
                 var components = gameObject.GetComponentsInChildren<ITooltipAttributeImplementator>();
+                
                 foreach (var childrenComponent in components)
                 {
                     var type = childrenComponent.GetType();

@@ -28,29 +28,19 @@ namespace JAL
                 List<GameObject> temp = new List<GameObject>();
 
                 foreach (GameObject gameObject in roots)
-                {
                     GetChildRecursiveIntoList(gameObject, ref temp);
-                }
 
-                sceneObjects.Add(
-                    new SceneContainerForGameObjects(
-                        scene.name,
-                        temp
-                    )
-                );
+                sceneObjects.Add(new SceneContainerForGameObjects(scene.name, temp));
             }
         }
 
         private void GetChildRecursiveIntoList(GameObject gameObject, ref List<GameObject> list)
         {
-            if (null == gameObject)
-                return;
+            if (null == gameObject) return;
 
             foreach (Transform child in gameObject.transform)
             {
-                if (null == child)
-                    continue;
-
+                if (null == child) continue;
                 list.Add(child.gameObject);
                 GetChildRecursiveIntoList(child.gameObject, ref list);
             }
@@ -59,13 +49,7 @@ namespace JAL
         private void RemoveFrom(Scene[] scenes)
         {
             foreach (Scene scene in scenes)
-            {
-                sceneObjects.Remove(
-                    sceneObjects.Find(
-                        x => x.SceneName == scene.name
-                        )
-                    );
-            }
+                sceneObjects.Remove(sceneObjects.Find(x => x.SceneName == scene.name));
         }
     }
 
